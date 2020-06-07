@@ -1,5 +1,6 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: maciej
@@ -10,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>PMApplication</title>
+    <title>Rejestracja nowego użytkownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -37,34 +38,34 @@
 <div class="limiter">
     <div class="container-login100" style="background-image: url('/css/images/construction.jpg');">
         <div class="wrap-login100 p-t-190 p-b-30">
-            <form method="post">
-                <div class="login100-form-avatar">
-                    <img src="../css/images/logo.jpg" alt="LOGO">
-                </div>
 
                 <span class="login100-form-title p-t-20 p-b-45">
-						Project Management Application
+						Dodaj nowego użytkownika
                 </span>
 
-                <div class="form-group">
-                    <label for="exampleInputEmail1"></label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Email"/>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1"></label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Hasło"/>
-                </div>
-                <button type="submit" class="login100-form-btn">Zaloguj</button>
-            </form>
+    <form:form method="post" modelAttribute="user">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email nowego użytkownika</label>
+            <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj email użytkownika"/>
+            <form:errors path="email" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Hasło dostępu nowego użytkownika</label>
+            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj hasło użytkownika"/>
+            <form:errors path="password" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Uprawnienia nowego użytkownika</label><br>
+            <form:select path="role" class="form-control" id="exampleFormControlSelect1">
+                <c:forEach items="${roles}" var="role">
+                    <form:option value="${role}">${role.name}</form:option>
+                </c:forEach>
+            </form:select>
+            <form:errors path="role" class="error-message"/>
+        </div>
+        <button type="submit" class="login100-form-btn">Dodaj</button>
+    </form:form>
 
-            <div class="text-center w-full p-t-25 p-b-230">
-            </div>
-
-            <div class="text-center w-full">
-                    <span class="txt1" href="#">
-                        by boalba 2020
-                    </span>
-            </div>
         </div>
     </div>
 </div>
