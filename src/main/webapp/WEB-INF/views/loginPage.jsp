@@ -36,7 +36,7 @@
 
 <div class="limiter">
     <div class="container-login100" style="background-image: url('/css/images/construction.jpg');">
-        <div class="wrap-login100 p-t-190 p-b-30">
+        <div class="wrap-login100 p-t-30 p-b-30">
             <form method="post">
                 <div class="login100-form-avatar">
                     <img src="../css/images/logo.jpg" alt="LOGO">

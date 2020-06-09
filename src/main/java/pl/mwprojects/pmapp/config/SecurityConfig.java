@@ -31,17 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/login").permitAll()
+//                .antMatchers("/register/**").hasAuthority("SUPERADMIN")
+//                .antMatchers("/**").authenticated()
                 .and().csrf().disable().formLogin()
-                .loginPage("/")
-                .defaultSuccessUrl("/dashboard")
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .failureUrl("/?error=true")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
+                .logoutSuccessUrl("/login").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
 

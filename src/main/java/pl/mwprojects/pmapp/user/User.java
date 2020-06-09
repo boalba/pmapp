@@ -1,5 +1,6 @@
 package pl.mwprojects.pmapp.user;
 
+import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.role.Role;
 
 import javax.persistence.*;
@@ -29,6 +30,10 @@ public class User {
 
     @ManyToOne
     private Role role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private PersonDetails details;
 
     public Long getId() {
         return id;
@@ -69,4 +74,13 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public PersonDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(PersonDetails details) {
+        this.details = details;
+    }
+
 }

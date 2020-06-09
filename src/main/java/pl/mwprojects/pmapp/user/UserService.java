@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.mwprojects.pmapp.role.RoleRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -28,5 +29,9 @@ public class UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(1);
         userRepository.save(user);
+    }
+
+    public List<User> findUsersWithoutPersonDetails(){
+        return userRepository.findUsersWithoutPersonalDetails();
     }
 }

@@ -28,7 +28,7 @@ public class PmappUserDetailsService implements org.springframework.security.cor
         User user = userService.findUserByEmail(username);
         if (user == null) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), grantedAuthorities);
     }
