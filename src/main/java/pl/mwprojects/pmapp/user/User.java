@@ -1,12 +1,16 @@
 package pl.mwprojects.pmapp.user;
 
+import org.hibernate.annotations.Cascade;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
+import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.role.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -30,10 +34,6 @@ public class User {
 
     @ManyToOne
     private Role role;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private PersonDetails details;
 
     public Long getId() {
         return id;
@@ -74,13 +74,4 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
-    public PersonDetails getDetails() {
-        return details;
-    }
-
-    public void setDetails(PersonDetails details) {
-        this.details = details;
-    }
-
 }

@@ -1,0 +1,69 @@
+.custom1 {
+    width: 100%;
+    min-height: 100vh;
+    /*display: -webkit-box;*/
+    /*display: -webkit-flex;*/
+    /*display: -moz-box;*/
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    justify-content: center;
+    align-items: center;
+    /*padding: 15px;*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.custom1::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #1167fb;
+    background: -webkit-linear-gradient(bottom, #1167fb, #17e2fb);
+    background: -o-linear-gradient(bottom, #1167fb, #17e2fb);
+    background: -moz-linear-gradient(bottom, #1167fb, #17e2fb);
+    background: linear-gradient(bottom, #1167fb, #17e2fb);
+    opacity: 0.9;
+}
+
+.w3-teal1 {
+    color: #000000 !important;
+    background-color: transparent !important;
+    padding: 10px;
+}
+
+.custom2 {
+    width: 380px;
+    background: transparent;
+    position: absolute;
+    left: 50%;
+    margin: 70px 0 0 -200px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.avatar img {
+    width: 100%;
+}
+.custom3 {
+    height: 300px;
+    padding: 50px;
+    text-align: center;
+}
+.custom4 {
+    padding: 20px;
+}

@@ -31,23 +31,29 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/cssfile.css">
+
+
     <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('/css/images/construction.jpg');">
-        <div class="wrap-login100 p-t-30 p-b-30">
-                <div class="btn-group, text-center" role="group" aria-label="Basic example">
-                    <a href="/">
-                        <button type="button" class="btn btn-primary">Menu</button>
-                    </a>
-                    <a href="/logout">
-                        <button type="button" class="btn btn-primary">Wyloguj</button>
-                    </a>
-                </div>
+    <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
+        <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+            <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+            <a href="/" class="w3-bar-item w3-button">Główna</a>
+            <a href="/logout" class="w3-bar-item w3-button">Wyloguj</a>
+        </div>
+        <div class="w3-teal1">
+            <button class="avatar" onclick="w3_open()">
+                <img src="../css/images/logo.jpg" alt="LOGO">
+            </button>
+        </div>
+        <div class="custom2">
 
-                <span class="login100-form-title p-t-20 p-b-45">
+                <span class="login100-form-title p-b-45">
 						Dodaj nowego pracownika
                 </span>
 
@@ -55,9 +61,8 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Email pracownika</label><br>
             <form:select path="user" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${usersWithoutDetails}" var="user">
-                    <form:option value="${user}">${user.email}</form:option>
-                </c:forEach>
+                <form:option value="-" label="Wybierz email"/>
+                <form:options items="${usersWithoutDetails}" itemLabel="email"/>
             </form:select>
             <form:errors path="user" class="error-message"/>
         </div>
@@ -91,6 +96,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
 
 </body>
 </html>

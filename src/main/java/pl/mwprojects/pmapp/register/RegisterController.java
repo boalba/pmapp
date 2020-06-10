@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
-import pl.mwprojects.pmapp.personDetails.PersonalDetailsRepository;
+import pl.mwprojects.pmapp.project.Project;
+import pl.mwprojects.pmapp.project.ProjectService;
 import pl.mwprojects.pmapp.role.Role;
 import pl.mwprojects.pmapp.role.RoleRepository;
 import pl.mwprojects.pmapp.user.User;
-import pl.mwprojects.pmapp.user.UserRepository;
 import pl.mwprojects.pmapp.user.UserService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,16 +27,14 @@ public class RegisterController {
 
     private final UserService userService;
     private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
-    private final PersonalDetailsRepository personalDetailsRepository;
     private final PersonDetailsService personDetailsService;
+    private final ProjectService projectService;
 
-    public RegisterController(UserService userService, RoleRepository roleRepository, UserRepository userRepository, PersonDetailsService personDetailsService, PersonalDetailsRepository personalDetailsRepository) {
+    public RegisterController(UserService userService, RoleRepository roleRepository, PersonDetailsService personDetailsService, ProjectService projectService) {
         this.userService = userService;
         this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
         this.personDetailsService = personDetailsService;
-        this.personalDetailsRepository = personalDetailsRepository;
+        this.projectService = projectService;
     }
 
     @ModelAttribute(name = "roles")
@@ -46,6 +45,16 @@ public class RegisterController {
     @ModelAttribute(name = "usersWithoutDetails")
     public List<User> usersWithoutDetails(){
         return userService.findUsersWithoutPersonDetails();
+    }
+
+    @ModelAttribute(name = "phases")
+    public List<String> phases(){
+        return Arrays.asList("WPK", "PB", "PP", "PW", "PPW");
+    }
+
+    @ModelAttribute(name = "personDetails")
+    public List<PersonDetails> personDetails(){
+        return personDetailsService.findAllPeopleInAlphabeticalOrder();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -68,11 +77,13 @@ public class RegisterController {
             return "redirect:/";
         }
     }
+
     @RequestMapping(value = "/person", method = RequestMethod.GET)
     public String personRegistrationForm(Model model){
         model.addAttribute("personDetails", new PersonDetails());
         return "personRegistrationForm";
     }
+
     @RequestMapping(value = "/person", method = RequestMethod.POST)
     public String processPersonRegistrationForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
@@ -95,5 +106,20 @@ public class RegisterController {
                 bindingResult.rejectValue("user", "error.user", "Pracownik o takim email już istnieje!");
                 return "personRegistrationForm";
             }
+    }
+
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    public String projectRegistrationForm(Model model){
+        model.addAttribute("project", new Project());
+        return "projectRegistrationForm";
+    }
+
+    @RequestMapping(value = "/project", method = RequestMethod.POST)
+    public String processProjectRegistrationForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "personRegistrationForm";
+        }
+        projectService.saveProject(project);
+        return "redirect:/";
     }
 }

@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego użytkownika</title>
+    <title>Rejestracja nowego pracownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../css/css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/cssfile.css">
 
+
     <!--===============================================================================================-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -50,31 +51,44 @@
                 <img src="../css/images/logo.jpg" alt="LOGO">
             </button>
         </div>
-            <div class="custom2">
+        <div class="custom2">
 
                 <span class="login100-form-title p-b-45">
-						Dodaj nowego użytkownika
+						Dodaj nowy projekt
                 </span>
 
-    <form:form method="post" modelAttribute="user">
+    <form:form method="post" modelAttribute="project">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email nowego użytkownika</label>
-            <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj email użytkownika"/>
-            <form:errors path="email" class="error-message"/>
+            <label for="exampleFormControlSelect1">Numer projektu</label><br>
+            <form:input path="projectNumber" type="number" min="0" step="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+            <form:errors path="projectNumber" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Hasło dostępu nowego użytkownika</label>
-            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj hasło użytkownika"/>
-            <form:errors path="password" class="error-message"/>
+            <label for="exampleInputEmail1">Nazwa projektu</label>
+            <form:input path="projectName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj nazwę projektu"/>
+            <form:errors path="projectName" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Uprawnienia nowego użytkownika</label>
-            <form:select path="role" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${roles}" var="role">
-                    <form:option value="${role}">${role.role}</form:option>
-                </c:forEach>
+            <label for="exampleInputEmail1">Skrót nazwy projektu</label>
+            <form:input path="hash" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj skrót nazwy projektu"/>
+            <form:errors path="hash" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Faza projektu</label>
+                <div>
+                    <c:forEach items="${phases}" var="phase">
+                        <form:checkbox path="phase" value="${phase}" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                        ${phase}
+                    </c:forEach>
+                    <form:errors path="phase" class="error-message"/>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Zespól projektowy</label>
+            <form:select path="users" multiple="true" class="form-control" id="exampleFormControlSelect1">
+                <form:options items="${personDetails}" itemLabel="sureName" itemValue="user"/>
             </form:select>
-            <form:errors path="role" class="error-message"/>
+            <form:errors path="users" class="error-message"/>
         </div>
         <button type="submit" class="login100-form-btn">Dodaj</button>
     </form:form>

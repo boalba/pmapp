@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.mwprojects.pmapp.user.PmappUserDetailsService;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -62,4 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PmappUserDetailsService customUserDetailsService() {
         return new PmappUserDetailsService();
     }
+
+
 }
