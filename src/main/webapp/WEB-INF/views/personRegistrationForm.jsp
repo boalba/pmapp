@@ -88,7 +88,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Zdjęcie pracownika</label>
-            <input type="file" name="file" class="form-control" id="exampleInputPassword1"/>
+            <input type="file" name="filePerson" class="form-control" id="exampleInputPassword1"/>
         </div>
         <button type="submit" class="login100-form-btn">Dodaj</button>
     </form:form>

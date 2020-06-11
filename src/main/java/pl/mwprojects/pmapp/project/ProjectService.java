@@ -17,4 +17,8 @@ public class ProjectService {
     public void saveProject(Project project){
         projectRepository.save(project);
     }
+
+    public Project findProjectByProjectNumber(Long projectNumber){
+        return projectRepository.findProjectByProjectNumber(projectNumber);
+    }
 }

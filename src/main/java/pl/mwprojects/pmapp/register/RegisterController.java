@@ -47,13 +47,13 @@ public class RegisterController {
         return userService.findUsersWithoutPersonDetails();
     }
 
-    @ModelAttribute(name = "phases")
+    @ModelAttribute(name = "phaseList")
     public List<String> phases(){
         return Arrays.asList("WPK", "PB", "PP", "PW", "PPW");
     }
 
-    @ModelAttribute(name = "personDetails")
-    public List<PersonDetails> personDetails(){
+    @ModelAttribute(name = "allPersons")
+    public List<PersonDetails> allPersons(){
         return personDetailsService.findAllPeopleInAlphabeticalOrder();
     }
 
@@ -69,7 +69,7 @@ public class RegisterController {
             return "userRegistrationForm";
         }
         Optional<User> optionalUser = Optional.ofNullable(userService.findUserByEmail(user.getEmail()));
-        if(optionalUser.isPresent() && optionalUser.get().getEmail().equals(user.getEmail())){
+        if(optionalUser.isPresent()){
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
             return "userRegistrationForm";
         }else {
@@ -85,7 +85,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/person", method = RequestMethod.POST)
-    public String processPersonRegistrationForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws Exception{
+    public String processPersonRegistrationForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
             return "personRegistrationForm";
         }
@@ -115,11 +115,17 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/project", method = RequestMethod.POST)
-    public String processProjectRegistrationForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult) {
+    public String processProjectRegistrationForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) {
         if(bindingResult.hasErrors()){
-            return "personRegistrationForm";
+            return "projectRegistrationForm";
         }
-        projectService.saveProject(project);
-        return "redirect:/";
+        Optional<Project> optionalProject = Optional.ofNullable(projectService.findProjectByProjectNumber(project.getProjectNumber()));
+        if(optionalProject.isPresent()){
+            bindingResult.rejectValue("projectNumber", "error.projectNumber", "Projekt o takim numerze już istnieje!");
+            return "projectRegistrationForm";
+        }else {
+            projectService.saveProject(project);
+            return "redirect:/";
+        }
     }
 }

@@ -90,10 +90,8 @@
         </div>
     </div>
 
-    <div class="w3-container">
-        <p>This sidebar is hidden by default, (style="display:none")</p>
-        <p>You must click on the "hamburger" icon (top left) to open it.</p>
-        <p>The sidebar will hide a part of the page content.</p>
+    <div class="custom5">
+        <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
     </div>
 
     <script>

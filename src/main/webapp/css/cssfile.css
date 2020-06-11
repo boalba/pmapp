@@ -67,3 +67,14 @@
 .custom4 {
     padding: 20px;
 }
+
+.custom5 {
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
+.custom6 {
+    line-height: 150%;
+    font-size: 150%;
+    color: black;
+}

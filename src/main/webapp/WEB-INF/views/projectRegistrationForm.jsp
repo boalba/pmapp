@@ -57,7 +57,7 @@
 						Dodaj nowy projekt
                 </span>
 
-    <form:form method="post" modelAttribute="project">
+    <form:form method="post" modelAttribute="project" enctype="multipart/form-data">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Numer projektu</label><br>
             <form:input path="projectNumber" type="number" min="0" step="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
@@ -76,17 +76,23 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Faza projektu</label>
                 <div>
-                    <c:forEach items="${phases}" var="phase">
-                        <form:checkbox path="phase" value="${phase}" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                    <c:forEach items="${phaseList}" var="phase">
+                        <form:checkbox path="phases" value="${phase}" id="exampleInputEmail1" aria-describedby="emailHelp"/>
                         ${phase}
                     </c:forEach>
-                    <form:errors path="phase" class="error-message"/>
+                    <form:errors path="phases" class="error-message"/>
                 </div>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Zespól projektowy</label>
+            <label for="exampleInputPassword1">Zdjęcie projektu</label>
+            <input type="file" name="fileProject" class="form-control" id="exampleInputPassword1"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Zespół projektowy</label>
             <form:select path="users" multiple="true" class="form-control" id="exampleFormControlSelect1">
-                <form:options items="${personDetails}" itemLabel="sureName" itemValue="user"/>
+                <c:forEach items="${allPersons}" var="thisPerson">
+                    <form:option value="${thisPerson.id}">${thisPerson.firstName} ${thisPerson.sureName}</form:option>
+                </c:forEach>
             </form:select>
             <form:errors path="users" class="error-message"/>
         </div>

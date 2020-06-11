@@ -5,6 +5,7 @@ import pl.mwprojects.pmapp.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +26,13 @@ public class Project {
 
     @NotNull
     @NotEmpty
+    @Size(min = 3, max = 3)
     private String hash;
 
     @NotNull
     @NotEmpty
     @ElementCollection(targetClass=String.class)
-    private Set<String> phase = new HashSet<>();
+    private Set<String> phases = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
@@ -67,12 +69,12 @@ public class Project {
         this.hash = hash;
     }
 
-    public Set<String> getPhase() {
-        return phase;
+    public Set<String> getPhases() {
+        return phases;
     }
 
-    public void setPhase(Set<String> phase) {
-        this.phase = phase;
+    public void setPhases(Set<String> phases) {
+        this.phases = phases;
     }
 
     public Set<User> getUsers() {

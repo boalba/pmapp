@@ -8,4 +8,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface ProjectRepository extends JpaRepository<Project, Long> {
+    Project findProjectByProjectNumber(Long projectNumber);
 }
