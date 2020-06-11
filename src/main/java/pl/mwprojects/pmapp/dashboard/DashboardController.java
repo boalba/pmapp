@@ -36,7 +36,6 @@ public class DashboardController {
             Optional<PersonDetails> personDetails = personDetailsService.findPersonDetailsById(currentUser.getId());
             if(personDetails.isPresent()){
                 model.addAttribute("currentPerson", personDetails.get());
-                model.addAttribute("currentPersonPicture", personDetails.get().getImage());
             }
         }
         return "dashboard";

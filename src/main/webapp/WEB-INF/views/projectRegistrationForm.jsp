@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego pracownika</title>
+    <title>Rejestracja nowego projektu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -41,11 +41,9 @@
 
 <div class="limiter">
     <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
-        <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
-            <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-            <a href="/" class="w3-bar-item w3-button">Główna</a>
-            <a href="/logout" class="w3-bar-item w3-button">Wyloguj</a>
-        </div>
+
+        <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
+
         <div class="w3-teal1">
             <button class="avatar" onclick="w3_open()">
                 <img src="../css/images/logo.jpg" alt="LOGO">
@@ -53,7 +51,7 @@
         </div>
         <div class="custom2">
 
-                <span class="login100-form-title p-b-45">
+                <span class="login100-form-title p-b-25">
 						Dodaj nowy projekt
                 </span>
 
@@ -82,6 +80,11 @@
                     </c:forEach>
                     <form:errors path="phases" class="error-message"/>
                 </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Opis projektu</label>
+            <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj projektu"/>
+            <form:errors path="description" class="error-message"/>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Zdjęcie projektu</label>

@@ -47,19 +47,9 @@
 <body>
 <div class="limiter">
 <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
-    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
-        <button onclick="w3_close()" class="w3-bar-item w3-large">Zamknij &times;</button>
-            <sec:authorize access="hasAuthority('SUPERADMIN')">
-                <a href="/register/user" class="w3-bar-item w3-button">Nowy użytkownik</a>
-                <a href="/register/person" class="w3-bar-item w3-button">Nowy pracownik</a>
-                <a href="/register/project" class="w3-bar-item w3-button">Nowy projekt</a>
-                <a href="/register/team" class="w3-bar-item w3-button">Nowy zespół</a>
-            </sec:authorize>
-            <a href="/" class="w3-bar-item w3-button">Projekty</a>
-            <a href="/" class="w3-bar-item w3-button">Pracownicy</a>
-            <a href="/" class="w3-bar-item w3-button">Zespoły</a>
-            <a href="/logout" class="w3-bar-item w3-button">Wyloguj</a>
-    </div>
+
+
+    <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
 
     <!-- Page Content -->
     <div class="w3-teal1">
@@ -69,11 +59,11 @@
 
         <div class="custom3">
             <c:choose>
-                <c:when test="${empty currentPersonPicture}">
+                <c:when test="${empty currentPerson}">
                     <img class="avatar" src="../css/images/somepicture.jpg" alt="LOGO">
                 </c:when>
                 <c:otherwise>
-                    <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentPersonPicture}"/>" alt="LOGO">
+                    <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentPerson.image}"/>" alt="LOGO">
                 </c:otherwise>
             </c:choose>
             <div class="custom4">

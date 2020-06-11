@@ -13,6 +13,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 
     position: relative;
     z-index: 1;
@@ -46,7 +49,7 @@
     background: transparent;
     position: absolute;
     left: 50%;
-    margin: 70px 0 0 -200px;
+    margin: 20px 0 0 -200px;
 }
 
 .avatar {
@@ -77,4 +80,24 @@
     line-height: 150%;
     font-size: 150%;
     color: black;
+}
+
+.table {
+    line-height: 150%;
+    font-size: 150%;
+    color: black;
+    text-align: center;
+}
+
+.custom7 {
+    margin-bottom: 30px;
+}
+.custom8 {
+    text-align: center;
+    height: 150px;
+}
+.custom9 {
+    text-align: center;
+    height: 150px;
+    padding-top: 50px;
 }
