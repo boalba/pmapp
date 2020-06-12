@@ -80,6 +80,11 @@
             <form:errors path="birthDate" class="error-message"/>
         </div>
         <div class="form-group">
+            <label for="exampleInputPassword1">Stanowisko pracownika</label>
+            <form:input path="position" type="text" class="form-control" id="exampleInputPassword1" placeholder="Podaj stanowisko pracownika"/>
+            <form:errors path="position" class="error-message"/>
+        </div>
+        <div class="form-group">
             <label for="exampleInputPassword1">Opis pracownika</label>
             <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj opis pracownika"/>
             <form:errors path="description" class="error-message"/>

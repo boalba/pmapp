@@ -11,15 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Witaj, <c:choose>
-        <c:when test="${empty currentPerson}">
-            <c:out value="Nowy Użytkowniku"></c:out>
-        </c:when>
-        <c:otherwise>
-            <c:out value="${currentPerson.firstName}"></c:out>
-        </c:otherwise>
-    </c:choose>
-    </title>
+    <title>Błedny login lub hasło!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -49,39 +41,21 @@
     <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
 
 
-        <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
+        <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+            <button onclick="w3_close()" class="w3-bar-item w3-large">Zamknij &times;</button>
+            <a href="/login" class="w3-bar-item w3-button">Logowanie</a>
+        </div>
 
         <!-- Page Content -->
         <div class="w3-teal1">
             <button class="avatar" onclick="w3_open()">
                 <img src="../css/images/logo.jpg" alt="LOGO">
             </button>
-
-            <div class="custom3">
-                <c:choose>
-                    <c:when test="${empty currentPerson}">
-                        <img class="avatar" src="../css/images/somepicture.jpg" alt="LOGO">
-                    </c:when>
-                    <c:otherwise>
-                        <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentPerson.image}"/>" alt="LOGO">
-                    </c:otherwise>
-                </c:choose>
-                <div class="custom4">
-                        <h1>Witaj, <c:choose>
-                            <c:when test="${empty currentPerson}">
-                                <c:out value="Nowy Użytkowniku"></c:out>
-                            </c:when>
-                            <c:otherwise>
-                                <c:out value="${currentPerson.firstName}"></c:out>
-                            </c:otherwise>
-                            </c:choose>
-                        </h1>
-                </div>
-            </div>
         </div>
 
         <div class="custom5">
-            <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
+            <p class="custom10">Błedny login lub hasło! Spróbuj jeszcze raz.</p>
+            <p class="custom10"><a class="custom10" href="/login">>>Zaloguj się<<</a></p>
         </div>
 
         <script>

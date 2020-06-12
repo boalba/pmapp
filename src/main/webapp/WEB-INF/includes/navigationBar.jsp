@@ -13,7 +13,7 @@
 <body>
 <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
     <button onclick="w3_close()" class="w3-bar-item w3-large">Zamknij &times;</button>
-    <sec:authorize access="hasAuthority('SUPERADMIN')">
+    <sec:authorize access="hasAuthority('ADMIN')">
         <a href="/user/register" class="w3-bar-item w3-button">Nowy użytkownik</a>
         <a href="/person/register" class="w3-bar-item w3-button">Nowy pracownik</a>
         <a href="/project/register" class="w3-bar-item w3-button">Nowy projekt</a>

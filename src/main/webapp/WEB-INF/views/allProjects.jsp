@@ -38,55 +38,55 @@
 </head>
 <body>
 <div class="limiter">
-<div class="custom1" style="background-image: url('/css/images/construction.jpg');">
+    <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
 
-    <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
+        <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
 
 
-    <!-- Page Content -->
-    <div class="w3-teal1">
-        <button class="avatar" onclick="w3_open()">
-            <img src="../css/images/logo.jpg" alt="LOGO">
-        </button>
-    </div>
-
-    <div class="custom5">
-        <div class="custom7">
-        <p class="custom6">Lista wszystkich projektów:</p>
+        <!-- Page Content -->
+        <div class="w3-teal1">
+            <button class="avatar" onclick="w3_open()">
+                <img src="../css/images/logo.jpg" alt="LOGO">
+            </button>
         </div>
-        <c:choose>
-            <c:when test="${empty allProjects}">
-                <p class="custom6">Brak projektów</p>
-            </c:when>
-            <c:otherwise>
-                <table class="table">
-                    <c:forEach items="${allProjects}" var="project">
-                        <tr>
-                            <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
-                            <td class="custom9">${project.projectNumber}</td>
-                            <td class="custom9">${project.hash}</td>
-                            <td class="custom9">${project.projectName}</td>
-                            <sec:authorize access="hasAuthority('SUPERADMIN')">
-                            <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
-                            <td class="custom9"><a href="/project/delete/${project.id}">Usuń</a></td>
-                            </sec:authorize>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:otherwise>
-        </c:choose>
+
+        <div class="custom5">
+            <div class="custom7">
+            <p class="custom6">Lista wszystkich projektów:</p>
+            </div>
+            <c:choose>
+                <c:when test="${empty allProjects}">
+                    <p class="custom6">Brak projektów</p>
+                </c:when>
+                <c:otherwise>
+                    <table class="table">
+                        <c:forEach items="${allProjects}" var="project">
+                            <tr>
+                                <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${project.projectNumber}</td>
+                                <td class="custom9">${project.hash}</td>
+                                <td class="custom9">${project.projectName}</td>
+                                <sec:authorize access="hasAuthority('ADMIN')">
+                                <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
+                                <td class="custom9"><a href="/project/delete/${project.id}">Usuń</a></td>
+                                </sec:authorize>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <script>
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+            }
+        </script>
     </div>
-
-    <script>
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
-    </script>
-</div>
 </div>
 </body>
 </html>

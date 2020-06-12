@@ -31,9 +31,11 @@ public class DashboardController {
         Optional<Principal> optionalPrincipal = Optional.ofNullable(principal);
         if(optionalPrincipal.isPresent()){
             String userEmail = optionalPrincipal.get().getName();
-            User currentUser = userService.findUserByEmail(userEmail);
-            model.addAttribute("currentUser", currentUser);
-            Optional<PersonDetails> personDetails = personDetailsService.findPersonDetailsById(currentUser.getId());
+            Optional<User> currentUser = userService.findUserByEmail(userEmail);
+            if(currentUser.isPresent()) {
+                model.addAttribute("currentUser", currentUser.get());
+            }
+            Optional<PersonDetails> personDetails = personDetailsService.findPersonDetailsById(currentUser.get().getId());
             if(personDetails.isPresent()){
                 model.addAttribute("currentPerson", personDetails.get());
             }

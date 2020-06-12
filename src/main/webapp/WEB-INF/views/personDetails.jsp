@@ -63,6 +63,7 @@
         <div class="custom5">
             <p class="custom6 p-t-10 p-b-10">Imię i nazwisko: <b><c:out value="${currentPersonDetails.firstName} ${currentPersonDetails.sureName}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Data urodzenia: <b><c:out value="${currentPersonDetails.birthDate}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Stanowisko: <b><c:out value="${currentPersonDetails.position}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Charakterystyka: <br>
                 <b>
                     <c:out value="${currentPersonDetails.description}"/>

@@ -6,6 +6,7 @@ import pl.mwprojects.pmapp.role.RoleRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,7 +22,7 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public User findUserByEmail(String email){
+    public Optional<User> findUserByEmail(String email){
         return userRepository.findByEmail(email);
     }
 

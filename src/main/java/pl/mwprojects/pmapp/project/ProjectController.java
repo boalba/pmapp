@@ -53,7 +53,7 @@ public class ProjectController {
         if(bindingResult.hasErrors()){
             return "projectRegistrationForm";
         }
-        Optional<Project> optionalProject = Optional.ofNullable(projectService.findProjectByProjectNumber(project.getProjectNumber()));
+        Optional<Project> optionalProject = projectService.findProjectByProjectNumber(project.getProjectNumber());
         if(optionalProject.isPresent()){
             bindingResult.rejectValue("projectNumber", "error.projectNumber", "Projekt o takim numerze już istnieje!");
             return "projectRegistrationForm";
@@ -75,7 +75,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showProjectDetails(Model model, @PathVariable Long id){
-        model.addAttribute("currentProject", projectService.findProjectById(id));
+        model.addAttribute("currentProject", projectService.findProjectById(id).get());
         model.addAttribute("peopleOnProject", personDetailsService.findAllPeopleByProjectId(id));
         return "projectDetails";
     }

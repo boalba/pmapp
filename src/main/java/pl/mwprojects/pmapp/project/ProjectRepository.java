@@ -6,16 +6,17 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-    Project findProjectByProjectNumber(Long projectNumber);
+    Optional<Project> findProjectByProjectNumber(Long projectNumber);
 
     @Query(value = "SELECT * FROM projects ORDER BY project_number ASC",
             nativeQuery = true)
     List<Project> findAllProjectsOrderedByProjectNumberASC();
 
-    Project findProjectById(Long id);
+    Optional<Project> findProjectById(Long id);
 }

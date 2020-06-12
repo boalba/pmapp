@@ -38,55 +38,56 @@
 </head>
 <body>
 <div class="limiter">
-<div class="custom1" style="background-image: url('/css/images/construction.jpg');">
+    <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
 
-    <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
+        <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
 
 
-    <!-- Page Content -->
-    <div class="w3-teal1">
-        <button class="avatar" onclick="w3_open()">
-            <img src="../css/images/logo.jpg" alt="LOGO">
-        </button>
-    </div>
-
-    <div class="custom5">
-        <div class="custom7">
-        <p class="custom6">Lista wszystkich pracowników:</p>
+        <!-- Page Content -->
+        <div class="w3-teal1">
+            <button class="avatar" onclick="w3_open()">
+                <img src="../css/images/logo.jpg" alt="LOGO">
+            </button>
         </div>
-        <c:choose>
-            <c:when test="${empty allPeople}">
-                <p class="custom6">Brak pracowników</p>
-            </c:when>
-            <c:otherwise>
-                <table class="table">
-                    <c:forEach items="${allPeople}" var="person">
-                        <tr>
-                            <td class="custom8"><a href="/person/details/${person.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${person.image}"/>" alt="LOGO"></a></td>
-                            <td class="custom9">${person.firstName}</td>
-                            <td class="custom9">${person.sureName}</td>
-                            <td class="custom9">${person.birthDate}</td>
-                            <sec:authorize access="hasAuthority('SUPERADMIN')">
-                            <td class="custom9"><a href="/person/edit/${person.id}">Edytuj</a></td>
-                            <td class="custom9"><a href="/person/delete/${person.id}">Usuń</a></td>
-                            </sec:authorize>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:otherwise>
-        </c:choose>
+
+        <div class="custom5">
+            <div class="custom7">
+            <p class="custom6">Lista wszystkich pracowników:</p>
+            </div>
+            <c:choose>
+                <c:when test="${empty allPeople}">
+                    <p class="custom6">Brak pracowników</p>
+                </c:when>
+                <c:otherwise>
+                    <table class="table">
+                        <c:forEach items="${allPeople}" var="person">
+                            <tr>
+                                <td class="custom8"><a href="/person/details/${person.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${person.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${person.firstName}</td>
+                                <td class="custom9">${person.sureName}</td>
+                                <td class="custom9">${person.birthDate}</td>
+                                <td class="custom9">${person.position}</td>
+                                <sec:authorize access="hasAuthority('ADMIN')">
+                                <td class="custom9"><a href="/person/edit/${person.id}">Edytuj</a></td>
+                                <td class="custom9"><a href="/person/delete/${person.id}">Usuń</a></td>
+                                </sec:authorize>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
+
+        <script>
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+            }
+        </script>
     </div>
-
-    <script>
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
-    </script>
-</div>
 </div>
 </body>
 </html>

@@ -41,7 +41,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return "userRegistrationForm";
         }
-        Optional<User> optionalUser = Optional.ofNullable(userService.findUserByEmail(user.getEmail()));
+        Optional<User> optionalUser = userService.findUserByEmail(user.getEmail());
         if(optionalUser.isPresent()){
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
             return "userRegistrationForm";
@@ -50,5 +50,4 @@ public class UserController {
             return "redirect:/";
         }
     }
-
 }

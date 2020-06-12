@@ -10,4 +10,9 @@ public class LoginController {
     public String loginPage(){
         return "loginPage";
     }
+
+    @RequestMapping(value = "/loginError", method = RequestMethod.GET)
+    public String loginErrorPage(){
+        return "loginErrorPage";
+    }
 }

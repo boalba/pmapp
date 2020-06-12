@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -25,11 +26,11 @@ public class PmappUserDetailsService implements org.springframework.security.cor
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        User user = userService.findUserByEmail(username);
-        if (user == null) {throw new UsernameNotFoundException(username); }
+        Optional<User> user = userService.findUserByEmail(username);
+        if (!user.isPresent()) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole().getRole()));
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), grantedAuthorities);
+                user.get().getEmail(), user.get().getPassword(), grantedAuthorities);
     }
 }

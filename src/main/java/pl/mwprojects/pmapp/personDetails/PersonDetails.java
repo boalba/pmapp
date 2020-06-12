@@ -35,6 +35,10 @@ public class PersonDetails {
     @MapsId
     private User user;
 
+    @NotNull
+    @NotEmpty
+    private String position;
+
     public Long getId() {
         return id;
     }
@@ -89,5 +93,13 @@ public class PersonDetails {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

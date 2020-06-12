@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -19,7 +20,7 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
-    public Project findProjectByProjectNumber(Long projectNumber){
+    public Optional<Project> findProjectByProjectNumber(Long projectNumber){
         return projectRepository.findProjectByProjectNumber(projectNumber);
     }
 
@@ -31,7 +32,7 @@ public class ProjectService {
         return projectRepository.findAllProjectsOrderedByProjectNumberASC();
     }
 
-    public Project findProjectById(Long id){
+    public Optional<Project> findProjectById(Long id){
         return projectRepository.findProjectById(id);
     }
 }
