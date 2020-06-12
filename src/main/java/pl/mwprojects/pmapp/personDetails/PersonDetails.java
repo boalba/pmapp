@@ -31,7 +31,7 @@ public class PersonDetails {
 
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @MapsId
     private User user;
 

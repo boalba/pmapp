@@ -34,7 +34,7 @@ public class Project {
     @ElementCollection(targetClass=String.class)
     private Set<String> phases = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<>();
 
     @Lob

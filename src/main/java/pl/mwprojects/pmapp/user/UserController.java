@@ -67,4 +67,13 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/person/allPeople";
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable Long id){
+        Optional<User> currentUser = userService.findUserById(id);
+        if(currentUser.isPresent()){
+            userService.deleteUser(currentUser.get());
+        }
+        return "redirect:/person/allPeople";
+    }
 }

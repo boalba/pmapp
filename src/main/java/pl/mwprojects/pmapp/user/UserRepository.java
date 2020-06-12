@@ -21,5 +21,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users INNER JOIN projects_users ON users.id = projects_users.users_id WHERE project_id = ?1)",
             nativeQuery = true)
     List<User> findAllUsersByProjectId(Long projectId);
-
 }
