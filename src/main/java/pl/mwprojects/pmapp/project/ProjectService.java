@@ -39,4 +39,8 @@ public class ProjectService {
     public List<Project> findAllProjectsByUserId(Long userId){
         return projectRepository.findAllProjectsByUserIdOrderedByProjectNumberASC(userId);
     }
+
+    public void deleteProject(Project project){
+        projectRepository.delete(project);
+    }
 }

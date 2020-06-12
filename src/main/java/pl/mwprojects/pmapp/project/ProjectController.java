@@ -104,4 +104,12 @@ public class ProjectController {
         return "redirect:/project/allProjects";
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteProject(@PathVariable Long id){
+        Optional<Project> currentProject = projectService.findProjectById(id);
+        if(currentProject.isPresent()){
+            projectService.deleteProject(currentProject.get());
+        }
+        return "redirect:/project/allProjects";
+    }
 }
