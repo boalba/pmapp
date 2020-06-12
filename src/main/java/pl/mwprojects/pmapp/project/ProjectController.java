@@ -79,4 +79,29 @@ public class ProjectController {
         model.addAttribute("peopleOnProject", personDetailsService.findAllPeopleByProjectId(id));
         return "projectDetails";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editProject(Model model, @PathVariable Long id){
+        Optional<Project> currentProject = projectService.findProjectById(id);
+        if(currentProject.isPresent()) {
+            model.addAttribute("project", currentProject.get());
+        }
+        return "projectRegistrationForm";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String processEditProjectForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws Exception{
+        if(bindingResult.hasErrors()){
+            return "projectRegistrationForm";
+        }
+        if(!file.isEmpty() && file != null) {
+            byte[] bytes = file.getBytes();
+            byte[] encodeBase64 = Base64.encodeBase64(bytes);
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            project.setImage(base64Encoded);
+        }
+        projectService.saveProject(project);
+        return "redirect:/project/allProjects";
+    }
+
 }

@@ -14,6 +14,7 @@
     <title>Rejestracja nowego projektu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="../css/images/icons/mw.ico"/>
     <!--===============================================================================================-->
@@ -58,7 +59,7 @@
     <form:form method="post" modelAttribute="project" enctype="multipart/form-data">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Numer projektu</label><br>
-            <form:input path="projectNumber" type="number" min="0" step="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+            <form:input path="projectNumber" type="number" min="0" step="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj numer projektu"/>
             <form:errors path="projectNumber" class="error-message"/>
         </div>
         <div class="form-group">
@@ -83,7 +84,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Opis projektu</label>
-            <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj projektu"/>
+            <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj opis projektu"/>
             <form:errors path="description" class="error-message"/>
         </div>
         <div class="form-group">
