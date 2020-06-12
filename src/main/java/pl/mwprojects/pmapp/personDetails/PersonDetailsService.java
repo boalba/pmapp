@@ -28,7 +28,7 @@ public class PersonDetailsService {
         return personalDetailsRepository.findAllPeopleInAlphabeticalOrder();
     }
 
-    public List<PersonDetails> findAllPeopleByProjectId(Long id){
-        return personalDetailsRepository.findAllPeopleByProjectId(id);
+    public List<PersonDetails> findAllPeopleByProjectId(Long projectId){
+        return personalDetailsRepository.findAllPeopleByProjectId(projectId);
     }
 }

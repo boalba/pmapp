@@ -70,6 +70,28 @@
                 </b>
             </p>
         </div>
+        <div class="custom5">
+            <div class="custom7">
+                <p class="custom6 p-t-10 p-b-10"><c:out value="${currentPersonDetails.firstName}"/> uczestniczy obecnie w następujących projektach:</p>
+            </div>
+            <c:choose>
+                <c:when test="${empty currentPersonProjects}">
+                    <p class="custom6">Brak projektów</p>
+                </c:when>
+                <c:otherwise>
+                    <table class="table">
+                        <c:forEach items="${currentPersonProjects}" var="project">
+                            <tr>
+                                <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${project.projectNumber}</td>
+                                <td class="custom9">${project.hash}</td>
+                                <td class="custom9">${project.projectName}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
         <script>
             function w3_open() {

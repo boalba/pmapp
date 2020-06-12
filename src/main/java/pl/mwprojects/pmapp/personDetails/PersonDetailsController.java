@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.mwprojects.pmapp.project.ProjectService;
 import pl.mwprojects.pmapp.user.User;
 import pl.mwprojects.pmapp.user.UserService;
 
@@ -19,10 +20,12 @@ public class PersonDetailsController {
 
     private final PersonDetailsService personDetailsService;
     private final UserService userService;
+    private final ProjectService projectService;
 
-    public PersonDetailsController(PersonDetailsService personDetailsService, UserService userService) {
+    public PersonDetailsController(PersonDetailsService personDetailsService, UserService userService, ProjectService projectService) {
         this.personDetailsService = personDetailsService;
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @ModelAttribute(name = "usersWithoutDetails")
@@ -75,6 +78,7 @@ public class PersonDetailsController {
         Optional<PersonDetails> currentPerson = personDetailsService.findPersonDetailsById(id);
         if(currentPerson.isPresent()) {
             model.addAttribute("currentPersonDetails", currentPerson.get());
+            model.addAttribute("currentPersonProjects", projectService.findAllProjectsByUserId(currentPerson.get().getId()));
         }
         return "personDetails";
     }

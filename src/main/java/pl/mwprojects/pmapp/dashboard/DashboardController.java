@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
+import pl.mwprojects.pmapp.project.ProjectService;
 import pl.mwprojects.pmapp.user.User;
 import pl.mwprojects.pmapp.user.UserService;
 
@@ -20,10 +21,12 @@ public class DashboardController {
 
     private final UserService userService;
     private final PersonDetailsService personDetailsService;
+    private final ProjectService projectService;
 
-    public DashboardController(UserService userService, PersonDetailsService personDetailsService) {
+    public DashboardController(UserService userService, PersonDetailsService personDetailsService, ProjectService projectService) {
         this.userService = userService;
         this.personDetailsService = personDetailsService;
+        this.projectService = projectService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -31,13 +34,14 @@ public class DashboardController {
         Optional<Principal> optionalPrincipal = Optional.ofNullable(principal);
         if(optionalPrincipal.isPresent()){
             String userEmail = optionalPrincipal.get().getName();
-            Optional<User> currentUser = userService.findUserByEmail(userEmail);
-            if(currentUser.isPresent()) {
-                model.addAttribute("currentUser", currentUser.get());
+            Optional<User> loggedUser = userService.findUserByEmail(userEmail);
+            if(loggedUser.isPresent()) {
+                model.addAttribute("loggedUser", loggedUser.get());
+                model.addAttribute("loggedProjects", projectService.findAllProjectsByUserId(loggedUser.get().getId()));
             }
-            Optional<PersonDetails> personDetails = personDetailsService.findPersonDetailsById(currentUser.get().getId());
-            if(personDetails.isPresent()){
-                model.addAttribute("currentPerson", personDetails.get());
+            Optional<PersonDetails> loggedPersonDetails = personDetailsService.findPersonDetailsById(loggedUser.get().getId());
+            if(loggedPersonDetails.isPresent()){
+                model.addAttribute("loggedPerson", loggedPersonDetails.get());
             }
         }
         return "dashboard";

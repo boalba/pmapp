@@ -35,4 +35,8 @@ public class ProjectService {
     public Optional<Project> findProjectById(Long id){
         return projectRepository.findProjectById(id);
     }
+
+    public List<Project> findAllProjectsByUserId(Long userId){
+        return projectRepository.findAllProjectsByUserIdOrderedByProjectNumberASC(userId);
+    }
 }

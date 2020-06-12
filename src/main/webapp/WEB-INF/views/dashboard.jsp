@@ -12,11 +12,11 @@
 <html>
 <head>
     <title>Witaj, <c:choose>
-        <c:when test="${empty currentPerson}">
+        <c:when test="${empty loggedPerson}">
             <c:out value="Nowy Użytkowniku"></c:out>
         </c:when>
         <c:otherwise>
-            <c:out value="${currentPerson.firstName}"></c:out>
+            <c:out value="${loggedPerson.firstName}"></c:out>
         </c:otherwise>
     </c:choose>
     </title>
@@ -59,20 +59,20 @@
 
             <div class="custom3">
                 <c:choose>
-                    <c:when test="${empty currentPerson}">
+                    <c:when test="${empty loggedPerson}">
                         <img class="avatar" src="../css/images/somepicture.jpg" alt="LOGO">
                     </c:when>
                     <c:otherwise>
-                        <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentPerson.image}"/>" alt="LOGO">
+                        <img class="avatar" src="<c:url value="data:image/jpg;base64,${loggedPerson.image}"/>" alt="LOGO">
                     </c:otherwise>
                 </c:choose>
                 <div class="custom4">
                         <h1>Witaj, <c:choose>
-                            <c:when test="${empty currentPerson}">
+                            <c:when test="${empty loggedPerson}">
                                 <c:out value="Nowy Użytkowniku"></c:out>
                             </c:when>
                             <c:otherwise>
-                                <c:out value="${currentPerson.firstName}"></c:out>
+                                <c:out value="${loggedPerson.firstName}"></c:out>
                             </c:otherwise>
                             </c:choose>
                         </h1>
@@ -81,7 +81,26 @@
         </div>
 
         <div class="custom5">
-            <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
+            <div class="custom7">
+                <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
+            </div>
+                <c:choose>
+                    <c:when test="${empty loggedProjects}">
+                        <p class="custom6">Brak projektów</p>
+                    </c:when>
+                    <c:otherwise>
+                        <table class="table">
+                            <c:forEach items="${loggedProjects}" var="project">
+                                <tr>
+                                    <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
+                                    <td class="custom9">${project.projectNumber}</td>
+                                    <td class="custom9">${project.hash}</td>
+                                    <td class="custom9">${project.projectName}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
         </div>
 
         <script>
