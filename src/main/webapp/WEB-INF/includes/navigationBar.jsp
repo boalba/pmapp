@@ -20,8 +20,8 @@
         <a href="/team/register" class="w3-bar-item w3-button">Nowy zespół</a>
     </sec:authorize>
     <a href="/project/allProjects" class="w3-bar-item w3-button">Projekty</a>
-    <a href="/" class="w3-bar-item w3-button">Pracownicy</a>
-    <a href="/" class="w3-bar-item w3-button">Zespoły</a>
+    <a href="/person/allPeople" class="w3-bar-item w3-button">Pracownicy</a>
+    <a href="/team/allTeams" class="w3-bar-item w3-button">Zespoły</a>
     <a href="/logout" class="w3-bar-item w3-button">Wyloguj</a>
 </div>
 </body>

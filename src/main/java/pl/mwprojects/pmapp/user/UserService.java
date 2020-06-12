@@ -34,4 +34,8 @@ public class UserService {
     public List<User> findUsersWithoutPersonDetails(){
         return userRepository.findUsersWithoutPersonalDetails();
     }
+
+    public List<User> findAllUsersByProjectId(Long id){
+        return userRepository.findAllUsersByProjectId(id);
+    }
 }

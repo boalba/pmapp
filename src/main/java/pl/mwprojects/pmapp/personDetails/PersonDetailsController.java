@@ -5,15 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mwprojects.pmapp.user.User;
 import pl.mwprojects.pmapp.user.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/person")
@@ -32,6 +30,10 @@ public class PersonDetailsController {
         return userService.findUsersWithoutPersonDetails();
     }
 
+    @ModelAttribute(name = "allPeople")
+    public List<PersonDetails> allPeople(){
+        return personDetailsService.findAllPeopleInAlphabeticalOrder();
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String personRegistrationForm(Model model){
@@ -63,4 +65,17 @@ public class PersonDetailsController {
         }
     }
 
+    @RequestMapping(value = "/allPeople", method = RequestMethod.GET)
+    public String showAllPeople(){
+        return "allPeople";
+    }
+
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String showPersonDetails(Model model, @PathVariable Long id){
+        Optional<PersonDetails> currentPerson = personDetailsService.findPersonDetailsById(id);
+        if(currentPerson.isPresent()) {
+            model.addAttribute("currentPersonDetails", currentPerson.get());
+        }
+        return "personDetails";
+    }
 }

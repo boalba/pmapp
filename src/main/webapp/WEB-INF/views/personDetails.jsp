@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${currentProject.projectName}</title>
+    <title>${currentPersonDetails.firstName} ${currentPersonDetails.sureName}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -51,29 +51,21 @@
             </button>
 
             <div class="custom3">
-                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentProject.image}"/>" alt="LOGO">
+                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentPersonDetails.image}"/>" alt="LOGO">
                 <div class="custom4">
                     <h1>
-                        <c:out value="${currentProject.projectName}"/>
+                        <c:out value="${currentPersonDetails.firstName} ${currentPersonDetails.sureName}"/>
                     </h1>
                 </div>
             </div>
         </div>
 
         <div class="custom5">
-            <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa skrócona: <b><c:out value="${currentProject.hash}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
+            <p class="custom6 p-t-10 p-b-10">Imię i nazwisko: <b><c:out value="${currentPersonDetails.firstName} ${currentPersonDetails.sureName}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Data urodzenia: <b><c:out value="${currentPersonDetails.birthDate}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Charakterystyka: <br>
                 <b>
-                    <c:forEach items="${peopleOnProject}" var="person">
-                    <a href="/person/details/${person.id}"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
-                    </c:forEach>
-                </b>
-            </p>
-            <p class="custom6 p-t-10 p-b-10">Opis projektu:<br>
-                <b>
-                    <c:out value="${currentProject.description}"/>
+                    <c:out value="${currentPersonDetails.description}"/>
                 </b>
             </p>
         </div>

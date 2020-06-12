@@ -16,4 +16,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "SELECT * FROM projects ORDER BY project_number ASC",
             nativeQuery = true)
     List<Project> findAllProjectsOrderedByProjectNumberASC();
+
+    Project findProjectById(Long id);
 }

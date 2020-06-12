@@ -2,8 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: maciej
-  Date: 12.06.2020
-  Time: 08:44
+  Date: 07.06.2020
+  Time: 10:47
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,10 +11,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${currentProject.projectName}</title>
+    <title>Pracownicy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="../css/images/icons/mw.ico"/>
     <!--===============================================================================================-->
@@ -39,55 +38,55 @@
 </head>
 <body>
 <div class="limiter">
-    <div class="custom1" style="background-image: url('/css/images/construction.jpg');">
+<div class="custom1" style="background-image: url('/css/images/construction.jpg');">
+
+    <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
 
 
-        <%@include file="/WEB-INF/includes/navigationBar.jsp" %>
-
-        <!-- Page Content -->
-        <div class="w3-teal1">
-            <button class="avatar" onclick="w3_open()">
-                <img src="../css/images/logo.jpg" alt="LOGO">
-            </button>
-
-            <div class="custom3">
-                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentProject.image}"/>" alt="LOGO">
-                <div class="custom4">
-                    <h1>
-                        <c:out value="${currentProject.projectName}"/>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="custom5">
-            <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa skrócona: <b><c:out value="${currentProject.hash}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
-                <b>
-                    <c:forEach items="${peopleOnProject}" var="person">
-                    <a href="/person/details/${person.id}"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
-                    </c:forEach>
-                </b>
-            </p>
-            <p class="custom6 p-t-10 p-b-10">Opis projektu:<br>
-                <b>
-                    <c:out value="${currentProject.description}"/>
-                </b>
-            </p>
-        </div>
-
-        <script>
-            function w3_open() {
-                document.getElementById("mySidebar").style.display = "block";
-            }
-
-            function w3_close() {
-                document.getElementById("mySidebar").style.display = "none";
-            }
-        </script>
+    <!-- Page Content -->
+    <div class="w3-teal1">
+        <button class="avatar" onclick="w3_open()">
+            <img src="../css/images/logo.jpg" alt="LOGO">
+        </button>
     </div>
+
+    <div class="custom5">
+        <div class="custom7">
+        <p class="custom6">Lista wszystkich pracowników:</p>
+        </div>
+        <c:choose>
+            <c:when test="${empty allPeople}">
+                <p class="custom6">Brak pracowników</p>
+            </c:when>
+            <c:otherwise>
+                <table class="table">
+                    <c:forEach items="${allPeople}" var="person">
+                        <tr>
+                            <td class="custom8"><a href="/person/details/${person.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${person.image}"/>" alt="LOGO"></a></td>
+                            <td class="custom9">${person.firstName}</td>
+                            <td class="custom9">${person.sureName}</td>
+                            <td class="custom9">${person.birthDate}</td>
+                            <sec:authorize access="hasAuthority('SUPERADMIN')">
+                            <td class="custom9"><a href="/person/edit/${person.id}">Edytuj</a></td>
+                            <td class="custom9"><a href="/person/delete/${person.id}">Usuń</a></td>
+                            </sec:authorize>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</div>
 </div>
 </body>
 </html>

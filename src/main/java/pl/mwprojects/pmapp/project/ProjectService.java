@@ -30,4 +30,8 @@ public class ProjectService {
     public List<Project> findAllProjectsOrderedByProjectNumberASC(){
         return projectRepository.findAllProjectsOrderedByProjectNumberASC();
     }
+
+    public Project findProjectById(Long id){
+        return projectRepository.findProjectById(id);
+    }
 }

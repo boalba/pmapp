@@ -93,7 +93,7 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Zespół projektowy</label>
             <form:select path="users" multiple="true" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${allPersons}" var="thisPerson">
+                <c:forEach items="${allPeople}" var="thisPerson">
                     <form:option value="${thisPerson.id}">${thisPerson.firstName} ${thisPerson.sureName}</form:option>
                 </c:forEach>
             </form:select>

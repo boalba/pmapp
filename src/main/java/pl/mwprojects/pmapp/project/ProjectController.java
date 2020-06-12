@@ -32,8 +32,8 @@ public class ProjectController {
         return Arrays.asList("WPK", "PB", "PP", "PW", "PPW");
     }
 
-    @ModelAttribute(name = "allPersons")
-    public List<PersonDetails> allPersons(){
+    @ModelAttribute(name = "allPeople")
+    public List<PersonDetails> allPeople(){
         return personDetailsService.findAllPeopleInAlphabeticalOrder();
     }
 
@@ -73,10 +73,10 @@ public class ProjectController {
         return "allProjects";
     }
 
-    @RequestMapping(value = "/details/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showProjectDetails(Model model, @PathVariable Long id){
-        model.addAttribute("currentProject", projectService.findProjectByProjectNumber(id));
+        model.addAttribute("currentProject", projectService.findProjectById(id));
+        model.addAttribute("peopleOnProject", personDetailsService.findAllPeopleByProjectId(id));
         return "projectDetails";
     }
-
 }
