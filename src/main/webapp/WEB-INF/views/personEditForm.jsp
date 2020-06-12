@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego użytkownika</title>
+    <title>Edycja danych pracownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../css/css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/cssfile.css">
 
+
     <!--===============================================================================================-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -49,33 +50,43 @@
                 <img src="../css/images/logo.jpg" alt="LOGO">
             </button>
         </div>
-            <div class="custom2">
+        <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj nowego użytkownika
+						Edytuj dane pracownika
                 </span>
 
-    <form:form method="post" modelAttribute="user">
+    <form:form method="post" modelAttribute="personDetails" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email nowego użytkownika</label>
-            <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj email użytkownika"/>
-            <form:errors path="email" class="error-message"/>
+            <label for="exampleInputEmail1">Imię pracownika</label>
+            <form:input path="firstName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj imię pracownika"/>
+            <form:errors path="firstName" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Hasło dostępu nowego użytkownika</label>
-            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj hasło użytkownika"/>
-            <form:errors path="password" class="error-message"/>
+            <label for="exampleInputEmail1">Nazwisko pracownika</label>
+            <form:input path="sureName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj nazwisko pracownika"/>
+            <form:errors path="sureName" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Uprawnienia nowego użytkownika</label>
-            <form:select path="role" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${roles}" var="role">
-                    <form:option value="${role}">${role.role}</form:option>
-                </c:forEach>
-            </form:select>
-            <form:errors path="role" class="error-message"/>
+            <label for="exampleInputPassword1">Data urodzenia pracownika</label>
+            <form:input path="birthDate" type="date" class="form-control" id="exampleInputPassword1" placeholder="Podaj datę urodzenia pracownika"/>
+            <form:errors path="birthDate" class="error-message"/>
         </div>
-        <button type="submit" class="login100-form-btn">Dodaj</button>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Stanowisko pracownika</label>
+            <form:input path="position" type="text" class="form-control" id="exampleInputPassword1" placeholder="Podaj stanowisko pracownika"/>
+            <form:errors path="position" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Opis pracownika</label>
+            <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj opis pracownika"/>
+            <form:errors path="description" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Zdjęcie pracownika</label>
+            <input type="file" name="filePerson" class="form-control" id="exampleInputPassword1"/>
+        </div>
+        <button type="submit" class="login100-form-btn">Edytuj</button>
     </form:form>
 
         </div>

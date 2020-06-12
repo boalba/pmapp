@@ -4,9 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import pl.mwprojects.pmapp.role.Role;
 import pl.mwprojects.pmapp.role.RoleService;
 
@@ -49,5 +47,24 @@ public class UserController {
             userService.saveUser(user);
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editUser(Model model, @PathVariable Long id){
+        Optional<User> currentUser = userService.findUserById(id);
+        if(currentUser.isPresent()){
+            currentUser.get().setPassword("");
+            model.addAttribute("user", currentUser.get());
+        }
+        return "userRegistrationForm";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String processEditUserForm(@ModelAttribute(name = "user") @Validated User user, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "personRegistrationForm";
+        }
+        userService.saveUser(user);
+        return "redirect:/person/allPeople";
     }
 }

@@ -79,4 +79,27 @@ public class PersonDetailsController {
         return "personDetails";
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editPersonDetails(Model model, @PathVariable Long id){
+        Optional<PersonDetails> currentPerson = personDetailsService.findPersonDetailsById(id);
+        if(currentPerson.isPresent()) {
+            model.addAttribute("personDetails", currentPerson.get());
+        }
+        return "personEditForm";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String processEditPersonDetailsForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
+        if(bindingResult.hasErrors()){
+            return "personRegistrationForm";
+        }
+        if(!file.isEmpty() && file != null) {
+            byte[] bytes = file.getBytes();
+            byte[] encodeBase64 = Base64.encodeBase64(bytes);
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            personDetails.setImage(base64Encoded);
+        }
+        personDetailsService.savePerson(personDetails);
+        return "redirect:/person/allPeople";
+    }
 }

@@ -39,4 +39,8 @@ public class UserService {
     public List<User> findAllUsersByProjectId(Long id){
         return userRepository.findAllUsersByProjectId(id);
     }
+
+    public Optional<User> findUserById(Long id){
+        return userRepository.findById(id);
+    }
 }

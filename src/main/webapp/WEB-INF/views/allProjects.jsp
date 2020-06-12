@@ -66,7 +66,7 @@
                                 <td class="custom9">${project.projectNumber}</td>
                                 <td class="custom9">${project.hash}</td>
                                 <td class="custom9">${project.projectName}</td>
-                                <sec:authorize access="hasAuthority('ADMIN')">
+                                <sec:authorize access="hasAuthority('SUPERADMIN')">
                                 <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
                                 <td class="custom9"><a href="/project/delete/${project.id}">Usuń</a></td>
                                 </sec:authorize>

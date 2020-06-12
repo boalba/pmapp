@@ -67,9 +67,10 @@
                                 <td class="custom9">${person.sureName}</td>
                                 <td class="custom9">${person.birthDate}</td>
                                 <td class="custom9">${person.position}</td>
-                                <sec:authorize access="hasAuthority('ADMIN')">
-                                <td class="custom9"><a href="/person/edit/${person.id}">Edytuj</a></td>
-                                <td class="custom9"><a href="/person/delete/${person.id}">Usuń</a></td>
+                                <sec:authorize access="hasAuthority('SUPERADMIN')">
+                                    <td class="custom9"><a href="/person/edit/${person.id}">Edytuj dane pracownika</a></td>
+                                    <td class="custom9"><a href="/user/edit/${person.id}">Edytuj dane użytkownika</a></td>
+                                    <td class="custom9"><a href="/user/delete/${person.id}">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>
