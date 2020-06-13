@@ -2,9 +2,9 @@ package pl.mwprojects.pmapp.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.mwprojects.pmapp.role.RoleRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

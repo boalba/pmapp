@@ -4,6 +4,8 @@ import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
+    @NotEmpty
     private String teamName;
 
     @OneToOne(fetch = FetchType.LAZY)
