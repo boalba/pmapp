@@ -31,4 +31,8 @@ public class PersonDetailsService {
     public List<PersonDetails> findAllPeopleByProjectId(Long projectId){
         return personalDetailsRepository.findAllPeopleByProjectId(projectId);
     }
+
+    public List<PersonDetails> findAllPeopleWithoutTeamId(){
+        return personalDetailsRepository.findAllPeopleWithoutTeamId();
+    }
 }

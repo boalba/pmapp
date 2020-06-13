@@ -33,14 +33,24 @@ public class TeamController {
         this.projectService = projectService;
     }
 
-    @ModelAttribute(name = "allPeople")
-    public List<PersonDetails> allPeople(){
-        return personDetailsService.findAllPeopleInAlphabeticalOrder();
+    @ModelAttribute(name = "peopleWithoutTeam")
+    public List<PersonDetails> peopleWithoutTeam(){
+        return personDetailsService.findAllPeopleWithoutTeamId();
+    }
+
+    @ModelAttribute(name = "projectsWithoutTeams")
+    public List<Project> projectsWithoutTeams(){
+        return projectService.findAllProjectsWithoutTeamId();
     }
 
     @ModelAttribute(name = "allProjects")
     public List<Project> allProjects(){
         return projectService.findAllProjectsOrderedByProjectNumberASC();
+    }
+
+    @ModelAttribute(name = "allTeams")
+    public List<Team> allTeams(){
+        return teamService.findAllTeamsOrderedByTeamNameASC();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -57,6 +67,10 @@ public class TeamController {
         Optional<Team> optionalTeam = teamService.findTeamByTeamName(team.getTeamName());
         if(optionalTeam.isPresent()){
             bindingResult.rejectValue("teamName", "error.teamName", "Zespół o takiej nazwie już istnieje!");
+            return "teamRegistrationForm";
+        }
+        if(team.getUsers().contains(team.getTeamLeader())){
+            bindingResult.rejectValue("users", "error.users", "Kierownik nie może być jednocześnie członkiem zespołu");
             return "teamRegistrationForm";
         }
         if(!file.isEmpty() && file != null) {

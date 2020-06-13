@@ -17,6 +17,9 @@ public class Team {
 
     private String teamName;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private User teamLeader;
+
     @OneToMany(fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
@@ -40,6 +43,14 @@ public class Team {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public User getTeamLeader() {
+        return teamLeader;
+    }
+
+    public void setTeamLeader(User teamLeader) {
+        this.teamLeader = teamLeader;
     }
 
     public Set<User> getUsers() {

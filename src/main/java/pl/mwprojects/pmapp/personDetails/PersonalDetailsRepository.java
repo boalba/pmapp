@@ -18,4 +18,9 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
     @Query(value = "SELECT * FROM person_details INNER JOIN projects_users ON person_details.user_id = projects_users.users_id WHERE project_id = ?1",
             nativeQuery = true)
     List<PersonDetails> findAllPeopleByProjectId(Long projectId);
+
+    @Query(value = "SELECT * FROM person_details WHERE NOT EXISTS (SELECT * FROM teams_users WHERE person_details.user_id = teams_users.users_id)",
+            nativeQuery = true)
+    List<PersonDetails> findAllPeopleWithoutTeamId();
+
 }

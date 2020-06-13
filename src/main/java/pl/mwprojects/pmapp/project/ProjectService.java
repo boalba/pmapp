@@ -43,4 +43,8 @@ public class ProjectService {
     public void deleteProject(Project project){
         projectRepository.delete(project);
     }
+
+    public List<Project> findAllProjectsWithoutTeamId(){
+        return projectRepository.findAllProjectsWithoutTeamId();
+    }
 }

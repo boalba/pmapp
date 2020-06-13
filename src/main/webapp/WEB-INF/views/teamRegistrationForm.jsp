@@ -68,9 +68,18 @@
             <input type="file" name="fileTeam" class="form-control" id="exampleInputPassword1"/>
         </div>
         <div class="form-group">
+            <label for="exampleFormControlSelect1">Kierownik zespołu</label>
+            <form:select path="teamLeader" multiple="true" class="form-control" id="exampleFormControlSelect1">
+                <c:forEach items="${peopleWithoutTeam}" var="person">
+                    <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
+                </c:forEach>
+            </form:select>
+            <form:errors path="teamLeader" class="error-message"/>
+        </div>
+        <div class="form-group">
             <label for="exampleFormControlSelect1">Członkowie zespołu</label>
             <form:select path="users" multiple="true" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${allPeople}" var="person">
+                <c:forEach items="${peopleWithoutTeam}" var="person">
                     <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
                 </c:forEach>
             </form:select>
@@ -79,7 +88,7 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Projekty zespołu</label>
             <form:select path="projects" multiple="true" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${allProjects}" var="project">
+                <c:forEach items="${projectsWithoutTeams}" var="project">
                     <form:option value="${project.id}">${project.projectNumber} ${project.projectName}</form:option>
                 </c:forEach>
             </form:select>

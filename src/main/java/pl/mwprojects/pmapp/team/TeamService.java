@@ -3,6 +3,7 @@ package pl.mwprojects.pmapp.team;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class TeamService {
 
     public void saveTeam(Team team){
         teamRepository.save(team);
+    }
+
+    public List<Team> findAllTeamsOrderedByTeamNameASC(){
+        return teamRepository.findAllTeamsOrderedByTeamNameASC();
     }
 }
