@@ -63,12 +63,10 @@
                         <c:forEach items="${allTeams}" var="team">
                             <tr>
                                 <td class="custom8"><a href="/team/details/${team.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${team.image}"/>" alt="LOGO"></a></td>
-                                <td class="custom9">${team.name}</td>
-                                <td class="custom9">${project.hash}</td>
-                                <td class="custom9">${project.projectName}</td>
+                                <td class="custom9">${team.teamName}</td>
                                 <sec:authorize access="hasAuthority('SUPERADMIN')">
-                                <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
-                                <td class="custom9"><a href="/project/delete/${project.id}">Usuń</a></td>
+                                <td class="custom9"><a href="/team/edit/${team.id}">Edytuj</a></td>
+                                <td class="custom9"><a href="/team/delete/${team.id}">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>
