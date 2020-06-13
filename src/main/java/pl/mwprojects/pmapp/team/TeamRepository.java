@@ -3,7 +3,6 @@ package pl.mwprojects.pmapp.team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.mwprojects.pmapp.project.Project;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,4 +18,11 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
             nativeQuery = true)
     List<Team> findAllTeamsOrderedByTeamNameASC();
 
+    @Query(value = "SELECT * FROM teams INNER JOIN teams_users ON teams.id = teams_users.team_id WHERE teams_users.users_id = ?1",
+            nativeQuery = true)
+    Optional<Team> findTeamByUserId(Long userId);
+
+    @Query(value = "SELECT * FROM teams WHERE team_leader_id = ?1",
+            nativeQuery = true)
+    Optional<Team> findTeamByTeamLeaderId(Long teamLeaderId);
 }

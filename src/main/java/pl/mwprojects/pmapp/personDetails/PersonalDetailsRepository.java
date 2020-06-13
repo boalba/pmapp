@@ -19,7 +19,7 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
             nativeQuery = true)
     List<PersonDetails> findAllPeopleByProjectId(Long projectId);
 
-    @Query(value = "SELECT * FROM person_details WHERE NOT EXISTS (SELECT * FROM teams_users WHERE person_details.user_id = teams_users.users_id)",
+    @Query(value = "SELECT * FROM person_details WHERE NOT EXISTS (SELECT * FROM teams_users WHERE person_details.user_id = teams_users.users_id) AND NOT EXISTS (SELECT * FROM teams WHERE person_details.user_id = teams.team_leader_id)",
             nativeQuery = true)
     List<PersonDetails> findAllPeopleWithoutTeamId();
 

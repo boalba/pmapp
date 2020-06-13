@@ -43,7 +43,7 @@
                 </div>
 
                 <span class="login100-form-title p-t-20 p-b-45">
-						Project Management Application
+						PM Application
                 </span>
 
                 <div class="form-group">

@@ -18,7 +18,7 @@
         <c:otherwise>
             <c:out value="${loggedPerson.firstName}"></c:out>
         </c:otherwise>
-    </c:choose>
+    </c:choose> w PM Application
     </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,13 +74,28 @@
                             <c:otherwise>
                                 <c:out value="${loggedPerson.firstName}"></c:out>
                             </c:otherwise>
-                            </c:choose>
+                            </c:choose> w PM Application
                         </h1>
+                    <h1>Zespół: <c:choose>
+                        <c:when test="${empty loggedUserTeamByTeamLeader}">
+                            <c:choose>
+                                <c:when test="${empty loggedUserTeamByUser}">
+                                    brak
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/team/details/${loggedUserTeamByUser.id}" class="custom11"><c:out value="${loggedUserTeamByUser.teamName}"/></a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/team/details/${loggedUserTeamByUser.id}" class="custom11"><c:out value="${loggedUserTeamByTeamLeader.teamName}"/></a>
+                        </c:otherwise>
+                    </c:choose></h1>
                 </div>
             </div>
         </div>
 
-        <div class="custom5">
+        <div class="custom5 p-t-80">
             <div class="custom7">
                 <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
             </div>

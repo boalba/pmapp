@@ -64,6 +64,22 @@
             <p class="custom6 p-t-10 p-b-10">Imię i nazwisko: <b><c:out value="${currentPersonDetails.firstName} ${currentPersonDetails.sureName}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Data urodzenia: <b><c:out value="${currentPersonDetails.birthDate}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Stanowisko: <b><c:out value="${currentPersonDetails.position}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Zespół:
+                <b><c:choose>
+                    <c:when test="${empty currentPersonTeamByTeamLeader}">
+                        <c:choose>
+                            <c:when test="${empty currentPersonTeamByUser}">
+                            <p>Brak przypisanego zespołu</p>
+                            </c:when>
+                            <c:otherwise>
+                                Członek zespołu <a href="/team/details/${currentPersonTeamByUser.id}" class="custom11"><c:out value="${currentPersonTeamByUser.teamName}"/></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        Kierownik zespołu <a href="/team/details/${currentPersonTeamByTeamLeader.id}" class="custom11"><c:out value="${currentPersonTeamByTeamLeader.teamName}"/></a>
+                    </c:otherwise>
+                </c:choose></b>
             <p class="custom6 p-t-10 p-b-10">Charakterystyka: <br>
                 <b>
                     <c:out value="${currentPersonDetails.description}"/>

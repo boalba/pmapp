@@ -27,4 +27,12 @@ public class TeamService {
     public List<Team> findAllTeamsOrderedByTeamNameASC(){
         return teamRepository.findAllTeamsOrderedByTeamNameASC();
     }
+
+    public Optional<Team> findTeamByUserId(Long userId){
+        return teamRepository.findTeamByUserId(userId);
+    }
+
+    public Optional<Team> findTeamByTeamLeaderId(Long teamLeaderId){
+        return teamRepository.findTeamByTeamLeaderId(teamLeaderId);
+    }
 }

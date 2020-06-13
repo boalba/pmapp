@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mwprojects.pmapp.project.ProjectService;
+import pl.mwprojects.pmapp.team.Team;
+import pl.mwprojects.pmapp.team.TeamService;
 import pl.mwprojects.pmapp.user.User;
 import pl.mwprojects.pmapp.user.UserService;
 
@@ -21,11 +23,13 @@ public class PersonDetailsController {
     private final PersonDetailsService personDetailsService;
     private final UserService userService;
     private final ProjectService projectService;
+    private final TeamService teamService;
 
-    public PersonDetailsController(PersonDetailsService personDetailsService, UserService userService, ProjectService projectService) {
+    public PersonDetailsController(PersonDetailsService personDetailsService, UserService userService, ProjectService projectService, TeamService teamService) {
         this.personDetailsService = personDetailsService;
         this.userService = userService;
         this.projectService = projectService;
+        this.teamService = teamService;
     }
 
     @ModelAttribute(name = "usersWithoutDetails")
@@ -79,6 +83,15 @@ public class PersonDetailsController {
         if(currentPerson.isPresent()) {
             model.addAttribute("currentPersonDetails", currentPerson.get());
             model.addAttribute("currentPersonProjects", projectService.findAllProjectsByUserId(currentPerson.get().getId()));
+            Optional<Team> optionalTeamByTeamLeader = teamService.findTeamByTeamLeaderId(currentPerson.get().getId());
+            if(optionalTeamByTeamLeader.isPresent()){
+                model.addAttribute("currentPersonTeamByTeamLeader",optionalTeamByTeamLeader.get());
+            }else{
+                Optional<Team> optionalTeamByUser = teamService.findTeamByUserId(currentPerson.get().getId());
+                if(optionalTeamByUser.isPresent()){
+                    model.addAttribute("currentPersonTeamByUser", optionalTeamByUser.get());
+                }
+            }
         }
         return "personDetails";
     }
