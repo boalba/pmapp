@@ -64,6 +64,15 @@
             <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Nazwa skrócona: <b><c:out value="${currentProject.hash}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Projekt przypisany do zespołu:
+                <b><c:choose>
+                    <c:when test="${empty currentProjectTeam}">
+                        brak
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/team/details/${currentProjectTeam.id}" class="custom11"><c:out value="${currentProjectTeam.teamName}"/></a>
+                    </c:otherwise>
+                </c:choose></b>
             <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
                 <b>
                     <c:forEach items="${peopleOnProject}" var="person">

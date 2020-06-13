@@ -35,4 +35,8 @@ public class TeamService {
     public Optional<Team> findTeamByTeamLeaderId(Long teamLeaderId){
         return teamRepository.findTeamByTeamLeaderId(teamLeaderId);
     }
+
+    public Optional<Team> findTeamByProjectsId(Long projectId){
+        return teamRepository.findTeamByProjectsId(projectId);
+    }
 }

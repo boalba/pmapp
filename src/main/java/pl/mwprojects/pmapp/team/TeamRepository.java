@@ -25,4 +25,8 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
     @Query(value = "SELECT * FROM teams WHERE team_leader_id = ?1",
             nativeQuery = true)
     Optional<Team> findTeamByTeamLeaderId(Long teamLeaderId);
+
+    @Query(value = "SELECT * FROM teams INNER JOIN teams_projects ON teams.id = teams_projects.team_id WHERE teams_projects.projects_id = ?1",
+            nativeQuery = true)
+    Optional<Team> findTeamByProjectsId(Long projectId);
 }

@@ -69,7 +69,7 @@
                     <c:when test="${empty currentPersonTeamByTeamLeader}">
                         <c:choose>
                             <c:when test="${empty currentPersonTeamByUser}">
-                            Brak przypisanego zespołu
+                            brak
                             </c:when>
                             <c:otherwise>
                                 Członek zespołu <a href="/team/details/${currentPersonTeamByUser.id}" class="custom11"><c:out value="${currentPersonTeamByUser.teamName}"/></a>

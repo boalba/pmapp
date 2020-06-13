@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
+import pl.mwprojects.pmapp.team.Team;
+import pl.mwprojects.pmapp.team.TeamService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,10 +23,12 @@ public class ProjectController {
 
     private final PersonDetailsService personDetailsService;
     private final ProjectService projectService;
+    private final TeamService teamService;
 
-    public ProjectController(PersonDetailsService personDetailsService, ProjectService projectService) {
+    public ProjectController(PersonDetailsService personDetailsService, ProjectService projectService, TeamService teamService) {
         this.personDetailsService = personDetailsService;
         this.projectService = projectService;
+        this.teamService = teamService;
     }
 
     @ModelAttribute(name = "phaseList")
@@ -75,8 +79,15 @@ public class ProjectController {
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showProjectDetails(Model model, @PathVariable Long id){
-        model.addAttribute("currentProject", projectService.findProjectById(id).get());
-        model.addAttribute("peopleOnProject", personDetailsService.findAllPeopleByProjectId(id));
+        Optional<Project> currentProject = projectService.findProjectById(id);
+        if(currentProject.isPresent()) {
+            model.addAttribute("currentProject", currentProject.get());
+            model.addAttribute("peopleOnProject", personDetailsService.findAllPeopleByProjectId(currentProject.get().getId()));
+            Optional<Team> optionalTeamByProject = teamService.findTeamByProjectsId(currentProject.get().getId());
+            if (optionalTeamByProject.isPresent()) {
+                model.addAttribute("currentProjectTeam", optionalTeamByProject.get());
+            }
+        }
         return "projectDetails";
     }
 
