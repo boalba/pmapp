@@ -87,8 +87,13 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editTeam(Model model, @PathVariable int id){
-            teamService.editTeam(id, model, personDetailsService, projectService);
+    public String editTeam(Model model, @PathVariable int id) {
+        Optional<Team> currentTeam = teamService.findTeamById(id);
+        if(currentTeam.isPresent()) {
+            model.addAttribute("team", currentTeam);
+            model.addAttribute("peopleWithoutTeam", personDetailsService.findAllPeopleWithoutTeamId());
+            model.addAttribute("projectsWithoutTeams", projectService.findAllProjectsWithoutTeamId());
+        }
         return "teamRegistrationForm";
     }
 

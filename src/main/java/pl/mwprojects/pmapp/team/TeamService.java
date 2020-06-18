@@ -51,15 +51,5 @@ public class TeamService {
         teamRepository.delete(team);
     }
 
-    public void editTeam(int id, Model model, PersonDetailsService personDetailsService, ProjectService projectService){
-        Optional<Team> currentTeam = this.findTeamById(id);
-        if(currentTeam.isPresent()) {
-            this.deleteTeam(currentTeam.get());
-            Team editTeam = new Team();
-            editTeam.setTeamName(currentTeam.get().getTeamName());
-            model.addAttribute("team", editTeam);
-            model.addAttribute("peopleWithoutTeam", personDetailsService.findAllPeopleWithoutTeamId());
-            model.addAttribute("projectsWithoutTeams", projectService.findAllProjectsWithoutTeamId());
-        }
-    }
+
 }

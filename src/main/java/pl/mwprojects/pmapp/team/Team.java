@@ -21,13 +21,13 @@ public class Team {
     @NotEmpty
     private String teamName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private User teamLeader;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private Set<Project> projects = new HashSet<>();
 
     @Lob

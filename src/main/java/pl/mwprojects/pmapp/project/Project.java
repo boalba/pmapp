@@ -1,5 +1,6 @@
 package pl.mwprojects.pmapp.project;
 
+import pl.mwprojects.pmapp.team.Team;
 import pl.mwprojects.pmapp.user.User;
 
 import javax.persistence.*;
@@ -34,13 +35,16 @@ public class Project {
     @ElementCollection(targetClass=String.class)
     private Set<String> phases = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany
     private Set<User> users = new HashSet<>();
 
     @Lob
     private String image;
 
     private String description;
+
+    @ManyToOne
+    private Team team;
 
     public Long getId() {
         return id;
@@ -104,5 +108,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
