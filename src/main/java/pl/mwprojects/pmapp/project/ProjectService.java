@@ -1,6 +1,7 @@
 package pl.mwprojects.pmapp.project;
 
 import org.springframework.stereotype.Service;
+import pl.mwprojects.pmapp.personDetails.PersonDetails;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -46,5 +47,13 @@ public class ProjectService {
 
     public List<Project> findAllProjectsWithoutTeamId(){
         return projectRepository.findAllProjectsWithoutTeamId();
+    }
+
+    public void deleteUserFromProjectByUserId(Long userId){
+        projectRepository.deleteUserFromProjectByUserId(userId);
+    }
+
+    public List<Project> findAllProjectsOfCurrentTeam(int teamId){
+        return projectRepository.findAllProjectsOfCurrentTeam(teamId);
     }
 }

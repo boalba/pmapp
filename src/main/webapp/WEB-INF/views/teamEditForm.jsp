@@ -11,10 +11,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja/edycja projektu</title>
+    <title>Edycja zespołu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
+
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="../css/images/icons/mw.ico"/>
     <!--===============================================================================================-->
@@ -53,52 +54,58 @@
         <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj lub edytuj projekt
+						Edytuj zespół
                 </span>
 
-    <form:form method="post" modelAttribute="project" enctype="multipart/form-data">
+    <form:form method="post" modelAttribute="team" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Numer projektu</label><br>
-            <form:input path="projectNumber" type="number" min="0" step="1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj numer projektu"/>
-            <form:errors path="projectNumber" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Nazwa projektu</label>
-            <form:input path="projectName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj nazwę projektu"/>
-            <form:errors path="projectName" class="error-message"/>
+            <label for="exampleInputEmail1">Nazwa zespołu</label>
+            <form:input path="teamName" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj nazwę zespołu"/>
+            <form:errors path="teamName" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Skrót nazwy projektu</label>
-            <form:input path="hash" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj skrót nazwy projektu"/>
-            <form:errors path="hash" class="error-message"/>
+            <label for="exampleInputPassword1">Zdjęcie zespołu</label>
+            <input type="file" name="fileTeam" class="form-control" id="exampleInputPassword1"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Faza projektu</label>
-                <div>
-                    <c:forEach items="${phaseList}" var="phase">
-                        <form:checkbox path="phases" value="${phase}" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-                        ${phase}
-                    </c:forEach>
-                    <form:errors path="phases" class="error-message"/>
-                </div>
+            <label for="exampleFormControlSelect1">Kierownik zespołu</label>
+            <form:select path="teamLeader" multiple="true" class="form-control" id="exampleFormControlSelect1">
+                <form:option value="${currentTeamLeader.id}">${currentTeamLeader.firstName} ${currentTeamLeader.sureName}</form:option>
+                <c:forEach items="${peopleOfCurrentTeam}" var="person">
+                    <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
+                </c:forEach>
+                <c:forEach items="${peopleWithoutTeam}" var="person">
+                    <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
+                </c:forEach>
+            </form:select>
+            <form:errors path="teamLeader" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Opis projektu</label>
-            <form:textarea path="description" class="form-control" id="exampleInputPassword1" placeholder="Podaj opis projektu"/>
-            <form:errors path="description" class="error-message"/>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Zdjęcie projektu</label>
-            <input type="file" name="fileProject" class="form-control" id="exampleInputPassword1"/>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Zespół projektowy</label>
+            <label for="exampleFormControlSelect1">Członkowie zespołu</label>
             <form:select path="users" multiple="true" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${allPeople}" var="person">
+                <form:option value="${currentTeamLeader.id}">${currentTeamLeader.firstName} ${currentTeamLeader.sureName}</form:option>
+                <c:forEach items="${peopleOfCurrentTeam}" var="person">
+                    <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
+                </c:forEach>
+                <c:forEach items="${peopleWithoutTeam}" var="person">
                     <form:option value="${person.id}">${person.firstName} ${person.sureName}</form:option>
                 </c:forEach>
             </form:select>
             <form:errors path="users" class="error-message"/>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Projekty zespołu</label>
+            <form:select path="projects" multiple="true" class="form-control" id="exampleFormControlSelect1">
+                <c:forEach items="${projectsOfCurrentTeam}" var="project">
+                    <form:option value="${project.id}">${project.projectNumber} ${project.projectName}</form:option>
+                </c:forEach>
+                <c:forEach items="${projectsWithoutTeams}" var="project">
+                    <form:option value="${project.id}">${project.projectNumber} ${project.projectName}</form:option>
+                </c:forEach>
+            </form:select>
+            <form:errors path="projects" class="error-message"/>
         </div>
         <button type="submit" class="login100-form-btn">Dodaj</button>
     </form:form>

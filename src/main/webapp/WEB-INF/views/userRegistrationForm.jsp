@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego użytkownika</title>
+    <title>Rejestracja/edycja użytkownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -52,7 +52,7 @@
             <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj nowego użytkownika
+						Dodaj lub edytuj użytkownika
                 </span>
 
     <form:form method="post" modelAttribute="user">

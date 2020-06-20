@@ -3,6 +3,7 @@ package pl.mwprojects.pmapp.team;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -31,4 +32,9 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
     @Query(value = "SELECT * FROM teams INNER JOIN teams_projects ON teams.id = teams_projects.team_id WHERE teams_projects.projects_id = ?1",
             nativeQuery = true)
     Optional<Team> findTeamByProjectsId(Long projectId);
+
+    @Modifying
+    @Query(value = "DELETE FROM teams_users WHERE teams_users.users_id = ?1",
+            nativeQuery = true)
+    void deleteUserFromTeamByUserId(Long userId);
 }

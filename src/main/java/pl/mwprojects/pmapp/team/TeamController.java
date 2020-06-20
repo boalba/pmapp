@@ -12,7 +12,6 @@ import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.project.ProjectService;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -91,16 +90,35 @@ public class TeamController {
         Optional<Team> currentTeam = teamService.findTeamById(id);
         if(currentTeam.isPresent()) {
             model.addAttribute("team", currentTeam);
-            model.addAttribute("peopleWithoutTeam", personDetailsService.findAllPeopleWithoutTeamId());
-            model.addAttribute("projectsWithoutTeams", projectService.findAllProjectsWithoutTeamId());
+            Optional<PersonDetails> currentTeamLeader = personDetailsService.findPersonDetailsOfCurrentTeamLeader(id);
+            if(currentTeamLeader.isPresent()){
+                model.addAttribute("currentTeamLeader", currentTeamLeader.get());
+            }
+            model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
+            model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
         }
-        return "teamRegistrationForm";
+        return "teamEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String processEditTeamForm(@ModelAttribute(name = "team") @Validated Team team, BindingResult bindingResult, @RequestParam("fileTeam") MultipartFile file) throws Exception{
+    public String processEditTeamForm(Model model, @PathVariable int id, @ModelAttribute(name = "team") @Validated Team team, BindingResult bindingResult, @RequestParam("fileTeam") MultipartFile file) throws Exception{
+        Optional<PersonDetails> currentTeamLeader = personDetailsService.findPersonDetailsOfCurrentTeamLeader(id);
         if(bindingResult.hasErrors()){
-            return "teamRegistrationForm";
+            if(currentTeamLeader.isPresent()){
+                model.addAttribute("currentTeamLeader", currentTeamLeader.get());
+            }
+            model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
+            model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
+            return "teamEditForm";
+        }
+        if(team.getUsers().contains(team.getTeamLeader())){
+            bindingResult.rejectValue("users", "error.users", "Kierownik nie może być jednocześnie członkiem zespołu");
+            if(currentTeamLeader.isPresent()){
+                model.addAttribute("currentTeamLeader", currentTeamLeader.get());
+            }
+            model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
+            model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
+            return "teamEditForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();

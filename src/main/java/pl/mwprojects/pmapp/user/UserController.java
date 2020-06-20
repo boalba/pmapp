@@ -5,8 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
+import pl.mwprojects.pmapp.project.ProjectService;
 import pl.mwprojects.pmapp.role.Role;
 import pl.mwprojects.pmapp.role.RoleService;
+import pl.mwprojects.pmapp.team.TeamService;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +20,16 @@ public class UserController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final ProjectService projectService;
+    private final PersonDetailsService personDetailsService;
+    private final TeamService teamService;
 
-    public UserController(UserService userService, RoleService roleService) {
+    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.projectService = projectService;
+        this.personDetailsService = personDetailsService;
+        this.teamService = teamService;
     }
 
     @ModelAttribute(name = "roles")
@@ -44,6 +53,7 @@ public class UserController {
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
             return "userRegistrationForm";
         }else {
+            user.setEnabled(1);
             userService.saveUser(user);
             return "redirect:/";
         }
@@ -62,7 +72,7 @@ public class UserController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditUserForm(@ModelAttribute(name = "user") @Validated User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "personRegistrationForm";
+            return "userRegistrationForm";
         }
         userService.saveUser(user);
         return "redirect:/person/allPeople";
@@ -72,6 +82,9 @@ public class UserController {
     public String deleteUser(@PathVariable Long id){
         Optional<User> currentUser = userService.findUserById(id);
         if(currentUser.isPresent()){
+            projectService.deleteUserFromProjectByUserId(id);
+            personDetailsService.deleteUserFromPersonDetailsByUserId(id);
+            teamService.deleteUserFromTeamByUserId(id);
             userService.deleteUser(currentUser.get());
         }
         return "redirect:/person/allPeople";

@@ -35,4 +35,16 @@ public class PersonDetailsService {
     public List<PersonDetails> findAllPeopleWithoutTeamId(){
         return personalDetailsRepository.findAllPeopleWithoutTeamId();
     }
+
+    public void deleteUserFromPersonDetailsByUserId(Long userId){
+        personalDetailsRepository.deleteUserFromPersonDetailsByUserId(userId);
+    }
+
+    public Optional<PersonDetails> findPersonDetailsOfCurrentTeamLeader(int teamId){
+        return personalDetailsRepository.findPersonDetailsOfCurrentTeamLeader(teamId);
+    }
+
+    public List<PersonDetails> findAllPersonDetailsOfCurrentTeam(int teamId){
+        return personalDetailsRepository.findAllPersonDetailsOfCurrentTeam(teamId);
+    }
 }

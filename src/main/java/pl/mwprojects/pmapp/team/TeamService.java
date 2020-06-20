@@ -51,5 +51,7 @@ public class TeamService {
         teamRepository.delete(team);
     }
 
-
+    public void deleteUserFromTeamByUserId(Long userId){
+        teamRepository.deleteUserFromTeamByUserId(userId);
+    }
 }
