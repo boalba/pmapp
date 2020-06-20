@@ -56,6 +56,22 @@
             <button class="avatar" onclick="w3_open()">
                 <img src="../css/images/logo.jpg" alt="LOGO">
             </button>
+            <button class="avatar float-right">
+                <c:choose>
+                    <c:when test="${empty loggedUserTeamByTeamLeader}">
+                        <c:choose>
+                            <c:when test="${empty loggedUserTeamByUser}">
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/team/details/${loggedUserTeamByUser.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${loggedUserTeamByUser.image}"/>" alt="LOGO"></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/team/details/${loggedUserTeamByTeamLeader.id}" ><img class="avatar" src="<c:url value="data:image/jpg;base64,${loggedUserTeamByTeamLeader.image}"/>" alt="LOGO"></a>
+                    </c:otherwise>
+                </c:choose>
+            </button>
 
             <div class="custom3">
                 <c:choose>
@@ -76,26 +92,26 @@
                             </c:otherwise>
                             </c:choose> w PM Application
                         </h1>
-                    <h1>Zespół: <c:choose>
-                        <c:when test="${empty loggedUserTeamByTeamLeader}">
-                            <c:choose>
-                                <c:when test="${empty loggedUserTeamByUser}">
-                                    brak
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="/team/details/${loggedUserTeamByUser.id}" class="custom11"><c:out value="${loggedUserTeamByUser.teamName}"/></a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="/team/details/${loggedUserTeamByTeamLeader.id}" class="custom11"><c:out value="${loggedUserTeamByTeamLeader.teamName}"/></a>
-                        </c:otherwise>
-                    </c:choose></h1>
+<%--                    <h1 class="p-t-50">Zespół: <c:choose>--%>
+<%--                        <c:when test="${empty loggedUserTeamByTeamLeader}">--%>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${empty loggedUserTeamByUser}">--%>
+<%--                                    brak--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <a href="/team/details/${loggedUserTeamByUser.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${loggedUserTeamByUser.image}"/>" alt="LOGO"></a>--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <a href="/team/details/${loggedUserTeamByTeamLeader.id}" ><img class="avatar" src="<c:url value="data:image/jpg;base64,${loggedUserTeamByTeamLeader.image}"/>" alt="LOGO"></a>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose></h1>--%>
                 </div>
             </div>
         </div>
 
-        <div class="custom5 p-t-80">
+        <div class="custom5 p-t-70">
             <div class="custom7">
                 <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
             </div>
