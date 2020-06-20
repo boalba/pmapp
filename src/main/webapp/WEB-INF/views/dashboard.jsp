@@ -88,7 +88,7 @@
                             </c:choose>
                         </c:when>
                         <c:otherwise>
-                            <a href="/team/details/${loggedUserTeamByUser.id}" class="custom11"><c:out value="${loggedUserTeamByTeamLeader.teamName}"/></a>
+                            <a href="/team/details/${loggedUserTeamByTeamLeader.id}" class="custom11"><c:out value="${loggedUserTeamByTeamLeader.teamName}"/></a>
                         </c:otherwise>
                     </c:choose></h1>
                 </div>

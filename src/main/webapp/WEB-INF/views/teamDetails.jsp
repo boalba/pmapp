@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${currentProject.projectName}</title>
+    <title>${currentTeam.teamName}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -51,40 +51,65 @@
             </button>
 
             <div class="custom3">
-                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentProject.image}"/>" alt="LOGO">
+                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentTeam.image}"/>" alt="LOGO">
                 <div class="custom4">
                     <h1>
-                        <c:out value="${currentProject.projectName}"/>
+                        Zespół <c:out value="${currentTeam.teamName}"/>
                     </h1>
                 </div>
             </div>
         </div>
 
         <div class="custom5">
-            <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa skrócona: <b><c:out value="${currentProject.hash}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Projekt przypisany do zespołu:
-                <b><c:choose>
-                    <c:when test="${empty currentProjectTeam}">
-                        brak
-                    </c:when>
-                    <c:otherwise>
-                        <a href="/team/details/${currentProjectTeam.id}" class="custom11"><c:out value="${currentProjectTeam.teamName}"/></a>
-                    </c:otherwise>
-                </c:choose></b>
-            <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
+            <p class="custom6 p-t-10 p-b-10">Nazwa zespołu: <b><c:out value="${currentTeam.teamName}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Kierownik zespołu:
                 <b>
-                    <c:forEach items="${peopleOnProject}" var="person">
-                    <a href="/person/details/${person.id}" class="custom11"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${empty currentTeam.teamLeader}">
+                            <p class="custom6">Brak kierownika zespołu</p>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/person/details/${currentTeam.teamLeader.id}" class="custom11"><c:out value="${personDetailsOfTeamLeader.firstName} ${personDetailsOfTeamLeader.sureName}"/></a>
+                        </c:otherwise>
+                    </c:choose>
                 </b>
             </p>
-            <p class="custom6 p-t-10 p-b-10">Opis projektu:<br>
+            <p class="custom6 p-t-10 p-b-10">Członkowie zespołu:<br>
                 <b>
-                    <c:out value="${currentProject.description}"/>
+                    <c:choose>
+                        <c:when test="${empty currentTeam.users}">
+                            <p class="custom6">Brak członków zespołu</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${personDetailsOfTeam}" var="member">
+                            <a href="/person/details/${member.id}" class="custom11"><c:out value="${member.firstName} ${member.sureName}"/></a><br>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </b>
             </p>
+        </div>
+        <div class="custom5">
+            <div class="custom7">
+                <p class="custom6 p-t-10 p-b-10"> Zespół <c:out value="${currentTeam.teamName}"/> uczestniczy w następujących projektach:</p>
+            </div>
+            <c:choose>
+                <c:when test="${empty currentTeamProjects}">
+                    <p class="custom6">Brak projektów</p>
+                </c:when>
+                <c:otherwise>
+                    <table class="table">
+                        <c:forEach items="${currentTeamProjects}" var="project">
+                            <tr>
+                                <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${project.projectNumber}</td>
+                                <td class="custom9">${project.hash}</td>
+                                <td class="custom9">${project.projectName}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <script>

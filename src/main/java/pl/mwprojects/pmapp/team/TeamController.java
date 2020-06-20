@@ -85,6 +85,19 @@ public class TeamController {
         return "allTeams";
     }
 
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String showTeamDetails(Model model, @PathVariable int id){
+        Optional<Team> currentTeam = teamService.findTeamById(id);
+        if(currentTeam.isPresent()) {
+            model.addAttribute("currentTeam", currentTeam.get());
+            model.addAttribute("currentTeamProjects", projectService.findAllProjectsOfCurrentTeam(currentTeam.get().getId()));
+            model.addAttribute("personDetailsOfTeamLeader", personDetailsService.findPersonDetailsOfCurrentTeamLeader(currentTeam.get().getId()).get());
+            model.addAttribute("personDetailsOfTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(currentTeam.get().getId()));
+        }
+        return "teamDetails";
+    }
+
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editTeam(Model model, @PathVariable int id) {
         Optional<Team> currentTeam = teamService.findTeamById(id);
