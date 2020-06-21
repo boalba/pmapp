@@ -1,6 +1,5 @@
 package pl.mwprojects.pmapp.user;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +11,7 @@ import pl.mwprojects.pmapp.role.Role;
 import pl.mwprojects.pmapp.role.RoleService;
 import pl.mwprojects.pmapp.team.TeamService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processUserRegistrationForm(@ModelAttribute(name = "user") @Validated(AddUserConstrain.class) User user, BindingResult bindingResult){
+    public String processUserRegistrationForm(@ModelAttribute(name = "user") @Validated(AddUserConstrain.class) User user, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             return "userRegistrationForm";
         }
@@ -54,10 +54,9 @@ public class UserController {
         if(optionalUser.isPresent()){
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
             return "userRegistrationForm";
-        }else {
-            userService.saveUser(user);
-            return "redirect:/";
         }
+        userService.saveUser(user);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
