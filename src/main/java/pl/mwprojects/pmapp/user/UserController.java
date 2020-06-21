@@ -12,6 +12,7 @@ import pl.mwprojects.pmapp.role.Role;
 import pl.mwprojects.pmapp.role.RoleService;
 import pl.mwprojects.pmapp.team.TeamService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +109,29 @@ public class UserController {
         Optional<User>baseUser = userService.findUserById(user.getId());
         userService.saveEditUserPassword(user, baseUser.get());
         return "redirect:/person/allPeople";
+    }
+
+    @RequestMapping(value = "/editOwnPass", method = RequestMethod.GET)
+    public String editOwnPassword(Model model){
+        model.addAttribute("user", new User());
+        return "userPasswordEditForm";
+    }
+
+    @RequestMapping(value = "/editOwnPass", method = RequestMethod.POST)
+    public String processEditOwnPasswordForm(@ModelAttribute(name = "user") @Validated(EditUserPasswordConstrain.class) User user, BindingResult bindingResult, @RequestParam(name = "passwordRepeat") String passwordRepeat, Principal principal){
+        if(bindingResult.hasErrors()){
+            return "userPasswordEditForm";
+        }
+        if(!user.getPassword().equals(passwordRepeat)){
+            bindingResult.rejectValue("password", "error.password", "Hasła nie są takie same!");
+            return "userPasswordEditForm";
+        }
+        Optional<Principal> optionalPrincipal = Optional.ofNullable(principal);
+        if(optionalPrincipal.isPresent()) {
+            Optional<User> baseUser = userService.findUserByEmail(optionalPrincipal.get().getName());
+            userService.saveEditUserPassword(user, baseUser.get());
+        }
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

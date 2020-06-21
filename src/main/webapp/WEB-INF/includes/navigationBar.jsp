@@ -23,6 +23,7 @@
     <a href="/person/allPeople" class="w3-bar-item w3-button">Pracownicy</a>
     <a href="/project/allProjects" class="w3-bar-item w3-button">Projekty</a>
     <a href="/team/allTeams" class="w3-bar-item w3-button">Zespoły</a>
+    <a href="/user/editOwnPass" class="w3-bar-item w3-button">Zmień hasło</a>
     <a href="/logout" class="w3-bar-item w3-button">Wyloguj</a>
 </div>
 </body>
