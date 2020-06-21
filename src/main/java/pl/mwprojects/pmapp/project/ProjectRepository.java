@@ -1,12 +1,9 @@
 package pl.mwprojects.pmapp.project;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.mwprojects.pmapp.personDetails.PersonDetails;
 
 import javax.transaction.Transactional;
 import java.util.List;

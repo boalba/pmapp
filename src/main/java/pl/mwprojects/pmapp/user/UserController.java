@@ -25,15 +25,13 @@ public class UserController {
     private final ProjectService projectService;
     private final PersonDetailsService personDetailsService;
     private final TeamService teamService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService) {
         this.userService = userService;
         this.roleService = roleService;
         this.projectService = projectService;
         this.personDetailsService = personDetailsService;
         this.teamService = teamService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @ModelAttribute(name = "roles")
@@ -57,7 +55,6 @@ public class UserController {
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
             return "userRegistrationForm";
         }else {
-            user.setEnabled(1);
             userService.saveUser(user);
             return "redirect:/";
         }

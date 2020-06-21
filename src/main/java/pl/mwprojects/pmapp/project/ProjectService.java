@@ -1,7 +1,6 @@
 package pl.mwprojects.pmapp.project;
 
 import org.springframework.stereotype.Service;
-import pl.mwprojects.pmapp.personDetails.PersonDetails;
 
 import javax.transaction.Transactional;
 import java.util.List;

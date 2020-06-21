@@ -68,7 +68,7 @@
                                 <td class="custom9">${project.projectName}</td>
                                 <sec:authorize access="hasAuthority('SUPERADMIN')">
                                 <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
-                                <td class="custom9"><a href="/project/delete/${project.id}">Usuń</a></td>
+                                <td class="custom9"><a href="/project/delete/${project.id}" onclick="return confirm('Czy napewno chcesz usunąć projekt: ${project.projectNumber} ${project.projectName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

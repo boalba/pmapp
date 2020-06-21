@@ -66,7 +66,7 @@
                                 <td class="custom9">${team.teamName}</td>
                                 <sec:authorize access="hasAuthority('SUPERADMIN')">
                                 <td class="custom9"><a href="/team/edit/${team.id}">Edytuj</a></td>
-                                <td class="custom9"><a href="/team/delete/${team.id}">Usuń</a></td>
+                                <td class="custom9"><a href="/team/delete/${team.id}" onclick="return confirm('Czy napewno chcesz usunąć zespół: ${team.teamName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

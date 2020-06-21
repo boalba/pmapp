@@ -71,7 +71,7 @@
                                     <td class="custom9"><a href="/person/edit/${person.id}">Edytuj dane pracownika</a></td>
                                     <td class="custom9"><a href="/user/edit/${person.id}">Edytuj dane użytkownika</a></td>
                                     <td class="custom9"><a href="/user/editPass/${person.id}">Edytuj hasło użytkownika</a></td>
-                                    <td class="custom9"><a href="/user/delete/${person.id}">Usuń</a></td>
+                                    <td class="custom9"><a href="/user/delete/${person.id}" onclick="return confirm('Czy napewno chcesz usunąć użytkownika: ${person.firstName} ${person.sureName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

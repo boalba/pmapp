@@ -26,8 +26,8 @@ public class PmappUserDetailsService implements org.springframework.security.cor
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        Optional<User> user = userService.findUserByEmail(username);
-        if (!user.isPresent()) {throw new UsernameNotFoundException(username); }
+        Optional<User> user = userService.findByEmailAndEnabled(username);
+        if(!user.isPresent()) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole().getRole()));
         return new org.springframework.security.core.userdetails.User(

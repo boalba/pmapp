@@ -1,9 +1,6 @@
 package pl.mwprojects.pmapp.team;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
-import pl.mwprojects.pmapp.project.ProjectService;
 
 import javax.transaction.Transactional;
 import java.util.List;

@@ -28,7 +28,7 @@ public class UserService {
 
     public void saveUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setEnabled(1);
+        user.setEnabled(0);
         userRepository.save(user);
     }
 
@@ -57,5 +57,9 @@ public class UserService {
     public void saveEditUserPassword(User user, User baseUser){
         baseUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(baseUser);
+    }
+
+    public Optional<User> findByEmailAndEnabled(String email) {
+        return userRepository.findByEmailAndEnabled(email, 1);
     }
 }
