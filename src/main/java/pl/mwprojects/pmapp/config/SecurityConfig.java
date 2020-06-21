@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/project/register", "/project/edit/**", "/project/delete/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/team/register", "/team/edit/**", "/team/delete/**").hasAuthority("SUPERADMIN")
-                .antMatchers("/user/register", "/user/edit/**", "/user/delete/**").hasAuthority("SUPERADMIN")
+                .antMatchers("/user/register", "/user/edit/**", "/user/editPass/**", "/user/delete/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/person/register", "/person/edit/**", "/person/delete/**").hasAuthority("SUPERADMIN")
-               .antMatchers("/**").authenticated()
+                .antMatchers("/**").authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/")
@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/css/**");
+                .antMatchers("/resources/**", "/css/**", "/loginError");
     }
 
     @Bean

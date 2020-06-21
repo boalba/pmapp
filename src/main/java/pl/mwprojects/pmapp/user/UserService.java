@@ -47,4 +47,15 @@ public class UserService {
     public void deleteUser(User user){
         userRepository.delete(user);
     }
+
+    public void saveEditUser(User user, User baseUser){
+        baseUser.setEmail(user.getEmail());
+        baseUser.setRole(user.getRole());
+        userRepository.save(baseUser);
+    }
+
+    public void saveEditUserPassword(User user, User baseUser){
+        baseUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(baseUser);
+    }
 }

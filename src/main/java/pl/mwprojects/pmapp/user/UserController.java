@@ -1,5 +1,6 @@
 package pl.mwprojects.pmapp.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,13 +24,15 @@ public class UserController {
     private final ProjectService projectService;
     private final PersonDetailsService personDetailsService;
     private final TeamService teamService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService) {
+    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
         this.projectService = projectService;
         this.personDetailsService = personDetailsService;
         this.teamService = teamService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @ModelAttribute(name = "roles")
@@ -44,7 +47,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processUserRegistrationForm(@ModelAttribute(name = "user") @Validated User user, BindingResult bindingResult){
+    public String processUserRegistrationForm(@ModelAttribute(name = "user") @Validated(AddUserConstrain.class) User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "userRegistrationForm";
         }
@@ -63,18 +66,47 @@ public class UserController {
     public String editUser(Model model, @PathVariable Long id){
         Optional<User> currentUser = userService.findUserById(id);
         if(currentUser.isPresent()){
-            currentUser.get().setPassword("");
             model.addAttribute("user", currentUser.get());
         }
-        return "userRegistrationForm";
+        return "userEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String processEditUserForm(@ModelAttribute(name = "user") @Validated User user, BindingResult bindingResult){
+    public String processEditUserForm(@ModelAttribute(name = "user") @Validated(EditUserConstrain.class) User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "userRegistrationForm";
+            return "userEditForm";
         }
-        userService.saveUser(user);
+        Optional<User> optionalUser = userService.findUserByEmail(user.getEmail());
+        if(optionalUser.isPresent()){
+            bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
+            return "userEditForm";
+        }
+        Optional<User>baseUser = userService.findUserById(user.getId());
+        userService.saveEditUser(user, baseUser.get());
+        return "redirect:/person/allPeople";
+    }
+
+    @RequestMapping(value = "/editPass/{id}", method = RequestMethod.GET)
+    public String editUserPassword(Model model, @PathVariable Long id){
+        Optional<User> currentUser = userService.findUserById(id);
+        if(currentUser.isPresent()){
+            currentUser.get().setPassword("");
+            model.addAttribute("user", currentUser.get());
+        }
+        return "userPasswordEditForm";
+    }
+
+    @RequestMapping(value = "/editPass/{id}", method = RequestMethod.POST)
+    public String processEditUserPasswordForm(@ModelAttribute(name = "user") @Validated(EditUserPasswordConstrain.class) User user, BindingResult bindingResult, @RequestParam(name = "passwordRepeat") String passwordRepeat){
+        if(bindingResult.hasErrors()){
+            return "userPasswordEditForm";
+        }
+        if(!user.getPassword().equals(passwordRepeat)){
+            bindingResult.rejectValue("password", "error.password", "Hasła nie są takie same!");
+            return "userPasswordEditForm";
+        }
+        Optional<User>baseUser = userService.findUserById(user.getId());
+        userService.saveEditUserPassword(user, baseUser.get());
         return "redirect:/person/allPeople";
     }
 

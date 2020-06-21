@@ -21,14 +21,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @NotEmpty
-    @Email
+    @NotNull(groups = {AddUserConstrain.class, EditUserConstrain.class})
+    @NotEmpty(groups = {AddUserConstrain.class, EditUserConstrain.class})
+    @Email(groups = {AddUserConstrain.class, EditUserConstrain.class})
     @Column(unique = true)
     private String email;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(groups = {AddUserConstrain.class, EditUserPasswordConstrain.class})
+    @NotEmpty(groups = {AddUserConstrain.class, EditUserPasswordConstrain.class})
     private String password;
 
     private int enabled;

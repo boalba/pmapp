@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego użytkownika</title>
+    <title>Edycja hasła użytkownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -52,28 +52,18 @@
             <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj nowego użytkownika
+						Edytuj hasło użytkownika
                 </span>
 
     <form:form method="post" modelAttribute="user">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email nowego użytkownika</label>
-            <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj email użytkownika"/>
-            <form:errors path="email" class="error-message"/>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Hasło dostępu nowego użytkownika</label>
-            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj hasło użytkownika"/>
+            <label for="exampleInputPassword1">Nowe hasło dostępu użytkownika</label>
+            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj nowe hasło użytkownika"/>
             <form:errors path="password" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Uprawnienia nowego użytkownika</label>
-            <form:select path="role" class="form-control" id="exampleFormControlSelect1">
-                <c:forEach items="${roles}" var="role">
-                    <form:option value="${role}">${role.role}</form:option>
-                </c:forEach>
-            </form:select>
-            <form:errors path="role" class="error-message"/>
+            <label for="exampleInputPassword1">Powtórz nowe hasło</label>
+            <input name="passwordRepeat" type="password" class="form-control" id="exampleInputPassword1" placeholder="Powtórz nowe hasło użytkownika"/>
         </div>
         <button type="submit" class="login100-form-btn">Dodaj</button>
     </form:form>

@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego użytkownika</title>
+    <title>Edycja użytkownika</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -52,22 +52,17 @@
             <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj nowego użytkownika
+						Edytuj użytkownika
                 </span>
 
     <form:form method="post" modelAttribute="user">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email nowego użytkownika</label>
+            <label for="exampleInputEmail1">Email użytkownika</label>
             <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Podaj email użytkownika"/>
             <form:errors path="email" class="error-message"/>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Hasło dostępu nowego użytkownika</label>
-            <form:input path="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Podaj hasło użytkownika"/>
-            <form:errors path="password" class="error-message"/>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Uprawnienia nowego użytkownika</label>
+            <label for="exampleFormControlSelect1">Uprawnienia użytkownika</label>
             <form:select path="role" class="form-control" id="exampleFormControlSelect1">
                 <c:forEach items="${roles}" var="role">
                     <form:option value="${role}">${role.role}</form:option>
