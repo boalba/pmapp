@@ -1,10 +1,14 @@
 package pl.mwprojects.pmapp.user;
 
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.mwprojects.pmapp.confirmation.ConfirmationToken;
+import pl.mwprojects.pmapp.confirmation.ConfirmationTokenService;
+import pl.mwprojects.pmapp.emailSender.EmailSenderService;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.ProjectService;
 import pl.mwprojects.pmapp.role.Role;
@@ -25,13 +29,17 @@ public class UserController {
     private final ProjectService projectService;
     private final PersonDetailsService personDetailsService;
     private final TeamService teamService;
+    private final ConfirmationTokenService confirmationTokenService;
+    private final EmailSenderService emailSenderService;
 
-    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService) {
+    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService, ConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService) {
         this.userService = userService;
         this.roleService = roleService;
         this.projectService = projectService;
         this.personDetailsService = personDetailsService;
         this.teamService = teamService;
+        this.confirmationTokenService = confirmationTokenService;
+        this.emailSenderService = emailSenderService;
     }
 
     @ModelAttribute(name = "roles")
@@ -56,7 +64,20 @@ public class UserController {
             return "userRegistrationForm";
         }
         userService.saveUser(user);
-        return "redirect:/";
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+        confirmationTokenService.saveToken(confirmationToken);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Dokończ rejestrację w aplikacji PM Application!");
+        mailMessage.setFrom("maciek.wyzykowski@gmail.com");
+        mailMessage.setText("Aby dokończyć rejestrację w aplikacji PM Application kliknij poniższy link: (Maciek RZĄDZI!!! ;) " + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
+
+        emailSenderService.sendEmail(mailMessage);
+
+        return "successfulRegistration";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

@@ -32,6 +32,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void saveUserAfterEmailConfirmation(User user){
+        userRepository.save(user);
+    }
+
     public List<User> findUsersWithoutPersonDetails(){
         return userRepository.findUsersWithoutPersonalDetails();
     }
