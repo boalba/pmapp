@@ -49,8 +49,18 @@
                 <img src="../css/images/logo.jpg" alt="LOGO">
             </button>
         </div>
-
         <div class="custom5">
+            <p class="custom6 p-b-10">Wyszukaj projekt:</p>
+            <div class="form-group">
+                <form method="post" action="/project/search">
+                    <input name="projectNumber" type="number" min="0" step="1" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Numer projektu"/>
+                    <input name="hash" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Skrót projektu"/>
+                    <input name="projectName" type="text" class="form-control custom13" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa projektu"/>
+                    <button type="submit" class="buttonSearch">Szukaj</button>
+                </form>
+            </div>
+        </div>
+        <div class="custom5 p-t-50">
             <div class="custom7">
             <p class="custom6">Lista wszystkich projektów:</p>
             </div>

@@ -56,20 +56,21 @@
                     <input name="firstName" type="text" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Imię pracownika"/>
                     <input name="sureName" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nazwisko pracownika"/>
                     <button type="submit" class="buttonSearch">Szukaj</button>
+                    <a href="/person/allPeople" class="buttonSearch">Wszyscy</a>
                 </form>
             </div>
         </div>
         <div class="custom5 p-t-50">
             <div class="custom7">
-            <p class="custom6">Lista wszystkich pracowników:</p>
+                <p class="custom6">Rezultaty wyszukiwania:</p>
             </div>
             <c:choose>
-                <c:when test="${empty allPeople}">
+                <c:when test="${empty searchedPeople}">
                     <p class="custom6">Brak pracowników</p>
                 </c:when>
                 <c:otherwise>
                     <table class="table">
-                        <c:forEach items="${allPeople}" var="person">
+                        <c:forEach items="${searchedPeople}" var="person">
                             <tr>
                                 <td class="custom8"><a href="/person/details/${person.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${person.image}"/>" alt="LOGO"></a></td>
                                 <td class="custom9">${person.firstName}</td>

@@ -63,4 +63,9 @@ public class ProjectService {
     public void deleteProjectFromTeamByProjectId(Long projectId){
         projectRepository.deleteProjectFromTeamByProjectId(projectId);
     }
+
+    public List<Project> findAllByProjectNumberOrHashOrProjectNameOrderByProjectNumberAsc(Long projectNumber, String hash, String projectName){
+        return projectRepository.findAllByProjectNumberOrHashOrProjectNameOrderByProjectNumberAsc(projectNumber, hash, projectName);
+    }
+
 }

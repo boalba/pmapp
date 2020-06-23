@@ -77,6 +77,12 @@ public class ProjectController {
         return "allProjects";
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchProject(Model model, @RequestParam(name = "projectNumber") Long projectNumber, @RequestParam(name = "hash") String hash, @RequestParam(name = "projectName") String projectName){
+        model.addAttribute("searchedProjects", projectService.findAllByProjectNumberOrHashOrProjectNameOrderByProjectNumberAsc(projectNumber, hash, projectName));
+        return "searchedProjects";
+    }
+
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showProjectDetails(Model model, @PathVariable Long id){
         Optional<Project> currentProject = projectService.findProjectById(id);

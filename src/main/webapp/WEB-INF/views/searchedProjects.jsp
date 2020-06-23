@@ -50,37 +50,36 @@
             </button>
         </div>
         <div class="custom5">
-            <p class="custom6 p-b-10">Wyszukaj pracownika:</p>
+            <p class="custom6 p-b-10">Wyszukaj projekt:</p>
             <div class="form-group">
-                <form method="post" action="/person/search">
-                    <input name="firstName" type="text" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Imię pracownika"/>
-                    <input name="sureName" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nazwisko pracownika"/>
+                <form method="post" action="/project/search">
+                    <input name="projectNumber" type="number" min="0" step="1" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Numer projektu"/>
+                    <input name="hash" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Skrót projektu"/>
+                    <input name="projectName" type="text" class="form-control custom13" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa projektu"/>
                     <button type="submit" class="buttonSearch">Szukaj</button>
+                    <a href="/project/allProjects" class="buttonSearch">Wszystkie</a>
                 </form>
             </div>
         </div>
         <div class="custom5 p-t-50">
             <div class="custom7">
-            <p class="custom6">Lista wszystkich pracowników:</p>
+                <p class="custom6">Rezultaty wyszukiwania:</p>
             </div>
             <c:choose>
-                <c:when test="${empty allPeople}">
-                    <p class="custom6">Brak pracowników</p>
+                <c:when test="${empty searchedProjects}">
+                    <p class="custom6">Brak projektów</p>
                 </c:when>
                 <c:otherwise>
                     <table class="table">
-                        <c:forEach items="${allPeople}" var="person">
+                        <c:forEach items="${searchedProjects}" var="project">
                             <tr>
-                                <td class="custom8"><a href="/person/details/${person.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${person.image}"/>" alt="LOGO"></a></td>
-                                <td class="custom9">${person.firstName}</td>
-                                <td class="custom9">${person.sureName}</td>
-                                <td class="custom9">${person.birthDate}</td>
-                                <td class="custom9">${person.position}</td>
+                                <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${project.projectNumber}</td>
+                                <td class="custom9">${project.hash}</td>
+                                <td class="custom9">${project.projectName}</td>
                                 <sec:authorize access="hasAuthority('SUPERADMIN')">
-                                    <td class="custom9"><a href="/person/edit/${person.id}">Edytuj dane pracownika</a></td>
-                                    <td class="custom9"><a href="/user/edit/${person.id}">Edytuj dane użytkownika</a></td>
-                                    <td class="custom9"><a href="/user/editPass/${person.id}">Edytuj hasło użytkownika</a></td>
-                                    <td class="custom9"><a href="/user/delete/${person.id}" onclick="return confirm('Czy napewno chcesz usunąć użytkownika: ${person.firstName} ${person.sureName}');">Usuń</a></td>
+                                    <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
+                                    <td class="custom9"><a href="/project/delete/${project.id}" onclick="return confirm('Czy napewno chcesz usunąć projekt: ${project.projectNumber} ${project.projectName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

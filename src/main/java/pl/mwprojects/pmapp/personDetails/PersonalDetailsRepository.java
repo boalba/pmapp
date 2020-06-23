@@ -38,4 +38,5 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
             nativeQuery = true)
     List<PersonDetails> findAllPersonDetailsOfCurrentTeam(int teamId);
 
+    List<PersonDetails> findAllByFirstNameOrSureNameOrderBySureNameAsc(String firstName, String sureName);
 }

@@ -77,6 +77,12 @@ public class PersonDetailsController {
         return "allPeople";
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchPeople(Model model, @RequestParam(name = "firstName") String firstName, @RequestParam(name = "sureName") String sureName){
+        model.addAttribute("searchedPeople", personDetailsService.findAllByFirstNameOrSureNameOrderBySureNameAsc(firstName, sureName));
+        return "searchedPeople";
+    }
+
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showPersonDetails(Model model, @PathVariable Long id){
         Optional<PersonDetails> currentPerson = personDetailsService.findPersonDetailsById(id);

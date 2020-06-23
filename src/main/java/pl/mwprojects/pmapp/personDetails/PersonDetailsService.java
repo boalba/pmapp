@@ -47,4 +47,8 @@ public class PersonDetailsService {
     public List<PersonDetails> findAllPersonDetailsOfCurrentTeam(int teamId){
         return personalDetailsRepository.findAllPersonDetailsOfCurrentTeam(teamId);
     }
+
+    public List<PersonDetails> findAllByFirstNameOrSureNameOrderBySureNameAsc(String firstName, String sureName){
+        return  personalDetailsRepository.findAllByFirstNameOrSureNameOrderBySureNameAsc(firstName, sureName);
+    }
 }

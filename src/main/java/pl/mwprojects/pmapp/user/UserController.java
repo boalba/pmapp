@@ -73,7 +73,7 @@ public class UserController {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Dokończ rejestrację w aplikacji PM Application!");
         mailMessage.setFrom("maciek.wyzykowski@gmail.com");
-        mailMessage.setText("Aby dokończyć rejestrację w aplikacji PM Application kliknij poniższy link: (Maciek RZĄDZI!!! ;) " + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken());
+        mailMessage.setText("Aby dokończyć rejestrację w aplikacji PM Application kliknij poniższy link: (Maciek RZĄDZI!!! ;) " + "http://localhost:8080/confirm-account?token=" + confirmationToken.getConfirmationToken() + "&email=" + user.getEmail());
 
         emailSenderService.sendEmail(mailMessage);
 

@@ -48,4 +48,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             nativeQuery = true)
     void deleteProjectFromTeamByProjectId(Long projectId);
 
+    List<Project> findAllByProjectNumberOrHashOrProjectNameOrderByProjectNumberAsc(Long projectNumber, String hash, String projectName);
+
 }

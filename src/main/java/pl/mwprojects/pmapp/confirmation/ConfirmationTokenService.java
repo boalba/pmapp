@@ -3,6 +3,7 @@ package pl.mwprojects.pmapp.confirmation;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -14,7 +15,7 @@ public class ConfirmationTokenService {
         this.confirmationTokenRepository = confirmationTokenRepository;
     }
 
-    public ConfirmationToken findByConfirmationToken(String confirmationToken){
+    public Optional<ConfirmationToken> findByConfirmationToken(String confirmationToken){
         return confirmationTokenRepository.findByConfirmationToken(confirmationToken);
     }
 
