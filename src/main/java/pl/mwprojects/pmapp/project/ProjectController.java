@@ -119,6 +119,8 @@ public class ProjectController {
     public String deleteProject(@PathVariable Long id){
         Optional<Project> currentProject = projectService.findProjectById(id);
         if(currentProject.isPresent()){
+            projectService.deleteProjectFromUserByProjectId(currentProject.get().getId());
+            projectService.deleteProjectFromTeamByProjectId(currentProject.get().getId());
             projectService.deleteProject(currentProject.get());
         }
         return "redirect:/project/allProjects";

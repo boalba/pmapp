@@ -21,7 +21,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Optional<Project> findProjectById(Long id);
 
-    @Query(value = "SELECT * FROM projects INNER JOIN projects_users ON projects.id = projects_users.projects_id WHERE projects_users.users_id = ?1 ORDER BY project_number ASC",
+    @Query(value = "SELECT * FROM projects INNER JOIN projects_users ON projects.id = projects_users.project_id WHERE projects_users.users_id = ?1 ORDER BY project_number ASC",
             nativeQuery = true)
     List<Project> findAllProjectsByUserIdOrderedByProjectNumberASC(Long userId);
 
@@ -37,5 +37,15 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "SELECT * FROM projects INNER JOIN teams_projects ON projects.id = teams_projects.projects_id WHERE teams_projects.team_id = ?1",
             nativeQuery = true)
     List<Project> findAllProjectsOfCurrentTeam(int teamId);
+
+    @Modifying
+    @Query(value = "DELETE FROM projects_users WHERE projects_users.project_id = ?1",
+            nativeQuery = true)
+    void deleteProjectFromUserByProjectId(Long projectId);
+
+    @Modifying
+    @Query(value = "DELETE FROM teams_projects WHERE teams_projects.projects_id = ?1",
+            nativeQuery = true)
+    void deleteProjectFromTeamByProjectId(Long projectId);
 
 }

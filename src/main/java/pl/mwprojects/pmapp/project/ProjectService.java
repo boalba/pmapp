@@ -55,4 +55,12 @@ public class ProjectService {
     public List<Project> findAllProjectsOfCurrentTeam(int teamId){
         return projectRepository.findAllProjectsOfCurrentTeam(teamId);
     }
+
+    public void deleteProjectFromUserByProjectId(Long projectId){
+        projectRepository.deleteProjectFromUserByProjectId(projectId);
+    }
+
+    public void deleteProjectFromTeamByProjectId(Long projectId){
+        projectRepository.deleteProjectFromTeamByProjectId(projectId);
+    }
 }

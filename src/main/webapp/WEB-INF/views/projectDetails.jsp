@@ -75,9 +75,16 @@
                 </c:choose></b>
             <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
                 <b>
-                    <c:forEach items="${peopleOnProject}" var="person">
-                    <a href="/person/details/${person.id}" class="custom11"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${empty peopleOnProject}">
+                            brak
+                        </c:when>
+                        <c:otherwise>
+                        <c:forEach items="${peopleOnProject}" var="person">
+                        <a href="/person/details/${person.id}" class="custom11"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
+                        </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </b>
             </p>
             <p class="custom6 p-t-10 p-b-10">Opis projektu:<br>

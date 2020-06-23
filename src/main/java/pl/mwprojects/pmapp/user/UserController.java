@@ -158,6 +158,7 @@ public class UserController {
             projectService.deleteUserFromProjectByUserId(id);
             personDetailsService.deleteUserFromPersonDetailsByUserId(id);
             teamService.deleteUserFromTeamByUserId(id);
+            teamService.deleteTeamLeaderFromTeamByUserId(id);
             userService.deleteUser(currentUser.get());
         }
         return "redirect:/person/allPeople";

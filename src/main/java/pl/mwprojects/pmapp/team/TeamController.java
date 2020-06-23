@@ -77,7 +77,7 @@ public class TeamController {
             team.setImage(base64Encoded);
         }
         teamService.saveTeam(team);
-        return "redirect:/";
+        return "redirect:/team/allTeams";
     }
 
     @RequestMapping(value = "/allTeams", method = RequestMethod.GET)
@@ -91,7 +91,9 @@ public class TeamController {
         if(currentTeam.isPresent()) {
             model.addAttribute("currentTeam", currentTeam.get());
             model.addAttribute("currentTeamProjects", projectService.findAllProjectsOfCurrentTeam(currentTeam.get().getId()));
-            model.addAttribute("personDetailsOfTeamLeader", personDetailsService.findPersonDetailsOfCurrentTeamLeader(currentTeam.get().getId()).get());
+            if(currentTeam.get().getTeamLeader() != null) {
+                model.addAttribute("personDetailsOfTeamLeader", personDetailsService.findPersonDetailsOfCurrentTeamLeader(currentTeam.get().getId()).get());
+            }
             model.addAttribute("personDetailsOfTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(currentTeam.get().getId()));
         }
         return "teamDetails";

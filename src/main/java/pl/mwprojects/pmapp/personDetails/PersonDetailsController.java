@@ -65,7 +65,7 @@ public class PersonDetailsController {
                 personDetails.setImage(base64Encoded);
             }
             personDetailsService.savePerson(personDetails);
-            return "redirect:/";
+            return "redirect:/person/allPeople";
         }catch(org.springframework.dao.DataIntegrityViolationException e){
             bindingResult.rejectValue("user", "error.user", "Pracownik o takim email już istnieje!");
             return "personRegistrationForm";

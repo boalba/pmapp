@@ -17,7 +17,7 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
             nativeQuery = true)
     List<PersonDetails> findAllPeopleInAlphabeticalOrder();
 
-    @Query(value = "SELECT * FROM person_details INNER JOIN projects_users ON person_details.user_id = projects_users.users_id WHERE projects_id = ?1",
+    @Query(value = "SELECT * FROM person_details INNER JOIN projects_users ON person_details.user_id = projects_users.users_id WHERE project_id = ?1",
             nativeQuery = true)
     List<PersonDetails> findAllPeopleByProjectId(Long projectId);
 
