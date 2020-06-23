@@ -77,7 +77,7 @@
                 <b>
                     <c:choose>
                         <c:when test="${empty peopleOnProject}">
-                            brak
+                            Brak zespołu projektowego
                         </c:when>
                         <c:otherwise>
                         <c:forEach items="${peopleOnProject}" var="person">
