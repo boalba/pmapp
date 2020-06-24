@@ -6,7 +6,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service("emailSenderService")
+@Transactional
 public class EmailSenderService {
 
     private JavaMailSender javaMailSender;

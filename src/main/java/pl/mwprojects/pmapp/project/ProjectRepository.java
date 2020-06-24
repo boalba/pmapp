@@ -30,6 +30,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findAllProjectsWithoutTeamId();
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM projects_users WHERE projects_users.users_id = ?1",
             nativeQuery = true)
     void deleteUserFromProjectByUserId(Long userId);
@@ -39,11 +40,13 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findAllProjectsOfCurrentTeam(int teamId);
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM projects_users WHERE projects_users.project_id = ?1",
             nativeQuery = true)
     void deleteProjectFromUserByProjectId(Long projectId);
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM teams_projects WHERE teams_projects.projects_id = ?1",
             nativeQuery = true)
     void deleteProjectFromTeamByProjectId(Long projectId);

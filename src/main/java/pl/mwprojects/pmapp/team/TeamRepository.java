@@ -32,11 +32,13 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
     Optional<Team> findTeamByProjectsId(Long projectId);
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM teams_users WHERE teams_users.users_id = ?1",
             nativeQuery = true)
     void deleteUserFromTeamByUserId(Long userId);
 
     @Modifying
+    @Transactional
     @Query(value = "UPDATE teams SET team_leader_id = NULL WHERE team_leader_id = ?1",
             nativeQuery = true)
     void deleteTeamLeaderFromTeamByUserId(Long userId);

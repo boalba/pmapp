@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.mwprojects.pmapp.assignment.AssignmentService;
 import pl.mwprojects.pmapp.confirmation.ConfirmationToken;
 import pl.mwprojects.pmapp.confirmation.ConfirmationTokenService;
 import pl.mwprojects.pmapp.emailSender.EmailSenderService;
@@ -31,8 +32,9 @@ public class UserController {
     private final TeamService teamService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSenderService emailSenderService;
+    private final AssignmentService assignmentService;
 
-    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService, ConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService) {
+    public UserController(UserService userService, RoleService roleService, ProjectService projectService, PersonDetailsService personDetailsService, TeamService teamService, ConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService, AssignmentService assignmentService) {
         this.userService = userService;
         this.roleService = roleService;
         this.projectService = projectService;
@@ -40,6 +42,7 @@ public class UserController {
         this.teamService = teamService;
         this.confirmationTokenService = confirmationTokenService;
         this.emailSenderService = emailSenderService;
+        this.assignmentService = assignmentService;
     }
 
     @ModelAttribute(name = "roles")
@@ -159,6 +162,7 @@ public class UserController {
             personDetailsService.deleteUserFromPersonDetailsByUserId(id);
             teamService.deleteUserFromTeamByUserId(id);
             teamService.deleteTeamLeaderFromTeamByUserId(id);
+            assignmentService.deleteUserFromAssignmentByUserId(id);
             userService.deleteUser(currentUser.get());
         }
         return "redirect:/person/allPeople";

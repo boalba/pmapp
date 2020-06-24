@@ -26,6 +26,7 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
     List<PersonDetails> findAllPeopleWithoutTeamId();
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM person_details WHERE person_details.user_id = ?1",
             nativeQuery = true)
     void deleteUserFromPersonDetailsByUserId(Long userId);

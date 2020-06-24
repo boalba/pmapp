@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.mwprojects.pmapp.assignment.AssignmentService;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.team.Team;
@@ -24,11 +25,13 @@ public class ProjectController {
     private final PersonDetailsService personDetailsService;
     private final ProjectService projectService;
     private final TeamService teamService;
+    private final AssignmentService assignmentService;
 
-    public ProjectController(PersonDetailsService personDetailsService, ProjectService projectService, TeamService teamService) {
+    public ProjectController(PersonDetailsService personDetailsService, ProjectService projectService, TeamService teamService, AssignmentService assignmentService) {
         this.personDetailsService = personDetailsService;
         this.projectService = projectService;
         this.teamService = teamService;
+        this.assignmentService = assignmentService;
     }
 
     @ModelAttribute(name = "phaseList")
@@ -69,7 +72,7 @@ public class ProjectController {
             project.setImage(base64Encoded);
         }
         projectService.saveProject(project);
-        return "redirect:/";
+        return "redirect:/project/allProjects";
     }
 
     @RequestMapping(value = "/allProjects", method = RequestMethod.GET)
@@ -125,8 +128,9 @@ public class ProjectController {
     public String deleteProject(@PathVariable Long id){
         Optional<Project> currentProject = projectService.findProjectById(id);
         if(currentProject.isPresent()){
-            projectService.deleteProjectFromUserByProjectId(currentProject.get().getId());
-            projectService.deleteProjectFromTeamByProjectId(currentProject.get().getId());
+            projectService.deleteProjectFromUserByProjectId(id);
+            projectService.deleteProjectFromTeamByProjectId(id);
+            assignmentService.deleteProjectFromAssignmentByProjectId(id);
             projectService.deleteProject(currentProject.get());
         }
         return "redirect:/project/allProjects";
