@@ -28,9 +28,9 @@ public class ConfirmationController {
         if(token.isPresent() && user.isPresent()) {
                 user.get().setEnabled(1);
                 userService.saveUserAfterEmailConfirmation(user.get());
-                return "successfulConfirmation";
+                return "confirmation/successfulConfirmation";
         }else {
-            return "failureConfirmation";
+            return "confirmation/failureConfirmation";
         }
     }
 }

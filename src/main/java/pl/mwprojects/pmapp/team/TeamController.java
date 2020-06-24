@@ -53,22 +53,22 @@ public class TeamController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String teamRegistrationForm(Model model){
         model.addAttribute("team", new Team());
-        return "teamRegistrationForm";
+        return "team/teamRegistrationForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processTeamRegistrationForm(@ModelAttribute(name = "team") @Validated Team team, BindingResult bindingResult, @RequestParam("fileTeam") MultipartFile file) throws IOException {
         if(bindingResult.hasErrors()){
-            return "teamRegistrationForm";
+            return "team/teamRegistrationForm";
         }
         Optional<Team> optionalTeam = teamService.findTeamByTeamName(team.getTeamName());
         if(optionalTeam.isPresent()){
             bindingResult.rejectValue("teamName", "error.teamName", "Zespół o takiej nazwie już istnieje!");
-            return "teamRegistrationForm";
+            return "team/teamRegistrationForm";
         }
         if(team.getUsers().contains(team.getTeamLeader())){
             bindingResult.rejectValue("users", "error.users", "Kierownik nie może być jednocześnie członkiem zespołu");
-            return "teamRegistrationForm";
+            return "team/teamRegistrationForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();
@@ -82,8 +82,15 @@ public class TeamController {
 
     @RequestMapping(value = "/allTeams", method = RequestMethod.GET)
     public String showAllTeams(){
-        return "allTeams";
+        return "team/allTeams";
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchTeam(Model model, @RequestParam(name = "teamName") String teamName){
+        model.addAttribute("searchedTeams", teamService.findAllByTeamNameOrderByTeamNameAsc(teamName));
+        return "team/searchedTeams";
+    }
+
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String showTeamDetails(Model model, @PathVariable int id){
@@ -96,7 +103,7 @@ public class TeamController {
             }
             model.addAttribute("personDetailsOfTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(currentTeam.get().getId()));
         }
-        return "teamDetails";
+        return "team/teamDetails";
     }
 
 
@@ -112,7 +119,7 @@ public class TeamController {
             model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
             model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
         }
-        return "teamEditForm";
+        return "team/teamEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -124,7 +131,7 @@ public class TeamController {
             }
             model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
             model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
-            return "teamEditForm";
+            return "team/teamEditForm";
         }
         if(team.getUsers().contains(team.getTeamLeader())){
             bindingResult.rejectValue("users", "error.users", "Kierownik nie może być jednocześnie członkiem zespołu");
@@ -133,7 +140,7 @@ public class TeamController {
             }
             model.addAttribute("peopleOfCurrentTeam", personDetailsService.findAllPersonDetailsOfCurrentTeam(id));
             model.addAttribute("projectsOfCurrentTeam", projectService.findAllProjectsOfCurrentTeam(id));
-            return "teamEditForm";
+            return "team/teamEditForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();

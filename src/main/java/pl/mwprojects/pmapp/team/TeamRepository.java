@@ -41,4 +41,6 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
             nativeQuery = true)
     void deleteTeamLeaderFromTeamByUserId(Long userId);
 
+    List<Team> findAllByTeamNameOrderByTeamNameAsc(String teamName);
+
 }

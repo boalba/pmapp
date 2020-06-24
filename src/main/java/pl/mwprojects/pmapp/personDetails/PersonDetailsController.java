@@ -45,17 +45,17 @@ public class PersonDetailsController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String personRegistrationForm(Model model){
         model.addAttribute("personDetails", new PersonDetails());
-        return "personRegistrationForm";
+        return "person/personRegistrationForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processPersonRegistrationForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
-            return "personRegistrationForm";
+            return "person/personRegistrationForm";
         }
         if(personDetails.getUser() == null){
             bindingResult.rejectValue("user", "error.user", "Nie ma kogo dodać!");
-            return "personRegistrationForm";
+            return "person/personRegistrationForm";
         }
         try{
             if(!file.isEmpty() && file != null) {
@@ -74,13 +74,13 @@ public class PersonDetailsController {
 
     @RequestMapping(value = "/allPeople", method = RequestMethod.GET)
     public String showAllPeople(){
-        return "allPeople";
+        return "person/allPeople";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchPeople(Model model, @RequestParam(name = "firstName") String firstName, @RequestParam(name = "sureName") String sureName){
         model.addAttribute("searchedPeople", personDetailsService.findAllByFirstNameOrSureNameOrderBySureNameAsc(firstName, sureName));
-        return "searchedPeople";
+        return "person/searchedPeople";
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
@@ -99,7 +99,7 @@ public class PersonDetailsController {
                 }
             }
         }
-        return "personDetails";
+        return "person/personDetails";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -108,13 +108,13 @@ public class PersonDetailsController {
         if(currentPerson.isPresent()) {
             model.addAttribute("personDetails", currentPerson.get());
         }
-        return "personEditForm";
+        return "person/personEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditPersonDetailsForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
-            return "personRegistrationForm";
+            return "person/personRegistrationForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();

@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pracownicy</title>
+    <title>Zespoły</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -52,34 +52,29 @@
         <div class="custom5">
             <p class="custom6 p-b-10">Wyszukaj projekt:</p>
             <div class="form-group">
-                <form method="post" action="/project/search">
-                    <input name="projectNumber" type="number" min="0" step="1" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Numer projektu"/>
-                    <input name="hash" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Skrót projektu"/>
-                    <input name="projectName" type="text" class="form-control custom13" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa projektu"/>
+                <form method="post" action="/team/search">
+                    <input name="teamName" type="text" class="form-control custom12" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa zespołu"/>
                     <button type="submit" class="buttonSearch">Szukaj</button>
-                    <a href="/project/allProjects" class="buttonSearch">Wszystkie</a>
                 </form>
             </div>
         </div>
         <div class="custom5 p-t-50">
             <div class="custom7">
-                <p class="custom6">Rezultaty wyszukiwania:</p>
+            <p class="custom6">Lista wszystkich zespołów:</p>
             </div>
             <c:choose>
-                <c:when test="${empty searchedProjects}">
-                    <p class="custom6">Brak projektów</p>
+                <c:when test="${empty allTeams}">
+                    <p class="custom6">Brak zespołów</p>
                 </c:when>
                 <c:otherwise>
                     <table class="table">
-                        <c:forEach items="${searchedProjects}" var="project">
+                        <c:forEach items="${allTeams}" var="team">
                             <tr>
-                                <td class="custom8"><a href="/project/details/${project.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${project.image}"/>" alt="LOGO"></a></td>
-                                <td class="custom9">${project.projectNumber}</td>
-                                <td class="custom9">${project.hash}</td>
-                                <td class="custom9">${project.projectName}</td>
+                                <td class="custom8"><a href="/team/details/${team.id}"><img class="avatar" src="<c:url value="data:image/jpg;base64,${team.image}"/>" alt="LOGO"></a></td>
+                                <td class="custom9">${team.teamName}</td>
                                 <sec:authorize access="hasAuthority('SUPERADMIN')">
-                                    <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
-                                    <td class="custom9"><a href="/project/delete/${project.id}" onclick="return confirm('Czy napewno chcesz usunąć projekt: ${project.projectNumber} ${project.projectName}');">Usuń</a></td>
+                                <td class="custom9"><a href="/team/edit/${team.id}">Edytuj</a></td>
+                                <td class="custom9"><a href="/team/delete/${team.id}" onclick="return confirm('Czy napewno chcesz usunąć zespół: ${team.teamName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

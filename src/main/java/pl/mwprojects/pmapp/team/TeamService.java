@@ -56,4 +56,8 @@ public class TeamService {
         teamRepository.deleteTeamLeaderFromTeamByUserId(userId);
     }
 
+    public List<Team> findAllByTeamNameOrderByTeamNameAsc(String teamName){
+        return teamRepository.findAllByTeamNameOrderByTeamNameAsc(teamName);
+    }
+
 }

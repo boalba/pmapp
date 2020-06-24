@@ -50,18 +50,18 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String userRegistrationForm(Model model){
         model.addAttribute("user", new User());
-        return "userRegistrationForm";
+        return "user/userRegistrationForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processUserRegistrationForm(@ModelAttribute(name = "user") @Validated(AddUserConstrain.class) User user, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
-            return "userRegistrationForm";
+            return "user/userRegistrationForm";
         }
         Optional<User> optionalUser = userService.findUserByEmail(user.getEmail());
         if(optionalUser.isPresent()){
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
-            return "userRegistrationForm";
+            return "user/userRegistrationForm";
         }
         userService.saveUser(user);
 
@@ -77,7 +77,7 @@ public class UserController {
 
         emailSenderService.sendEmail(mailMessage);
 
-        return "successfulRegistration";
+        return "confirmation/successfulRegistration";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -86,18 +86,18 @@ public class UserController {
         if(currentUser.isPresent()){
             model.addAttribute("user", currentUser.get());
         }
-        return "userEditForm";
+        return "user/userEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditUserForm(@ModelAttribute(name = "user") @Validated(EditUserConstrain.class) User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "userEditForm";
+            return "user/userEditForm";
         }
         Optional<User> optionalUser = userService.findUserByEmail(user.getEmail());
         if(optionalUser.isPresent()){
             bindingResult.rejectValue("email", "error.user", "Użytkownik o takim email już istnieje!");
-            return "userEditForm";
+            return "user/userEditForm";
         }
         Optional<User>baseUser = userService.findUserById(user.getId());
         userService.saveEditUser(user, baseUser.get());
@@ -111,17 +111,17 @@ public class UserController {
             currentUser.get().setPassword("");
             model.addAttribute("user", currentUser.get());
         }
-        return "userPasswordEditForm";
+        return "user/userPasswordEditForm";
     }
 
     @RequestMapping(value = "/editPass/{id}", method = RequestMethod.POST)
     public String processEditUserPasswordForm(@ModelAttribute(name = "user") @Validated(EditUserPasswordConstrain.class) User user, BindingResult bindingResult, @RequestParam(name = "passwordRepeat") String passwordRepeat){
         if(bindingResult.hasErrors()){
-            return "userPasswordEditForm";
+            return "user/userPasswordEditForm";
         }
         if(!user.getPassword().equals(passwordRepeat)){
             bindingResult.rejectValue("password", "error.password", "Hasła nie są takie same!");
-            return "userPasswordEditForm";
+            return "user/userPasswordEditForm";
         }
         Optional<User>baseUser = userService.findUserById(user.getId());
         userService.saveEditUserPassword(user, baseUser.get());
@@ -131,17 +131,17 @@ public class UserController {
     @RequestMapping(value = "/editOwnPass", method = RequestMethod.GET)
     public String editOwnPassword(Model model){
         model.addAttribute("user", new User());
-        return "userPasswordEditForm";
+        return "user/userPasswordEditForm";
     }
 
     @RequestMapping(value = "/editOwnPass", method = RequestMethod.POST)
     public String processEditOwnPasswordForm(@ModelAttribute(name = "user") @Validated(EditUserPasswordConstrain.class) User user, BindingResult bindingResult, @RequestParam(name = "passwordRepeat") String passwordRepeat, Principal principal){
         if(bindingResult.hasErrors()){
-            return "userPasswordEditForm";
+            return "user/userPasswordEditForm";
         }
         if(!user.getPassword().equals(passwordRepeat)){
             bindingResult.rejectValue("password", "error.password", "Hasła nie są takie same!");
-            return "userPasswordEditForm";
+            return "user/userPasswordEditForm";
         }
         Optional<Principal> optionalPrincipal = Optional.ofNullable(principal);
         if(optionalPrincipal.isPresent()) {

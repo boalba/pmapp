@@ -8,11 +8,11 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(){
-        return "loginPage";
+        return "login/loginPage";
     }
 
     @RequestMapping(value = "/loginError", method = RequestMethod.GET)
     public String loginErrorPage(){
-        return "loginErrorPage";
+        return "login/loginErrorPage";
     }
 }

@@ -49,18 +49,18 @@ public class ProjectController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String projectRegistrationForm(Model model){
         model.addAttribute("project", new Project());
-        return "projectRegistrationForm";
+        return "project/projectRegistrationForm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processProjectRegistrationForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws IOException {
         if(bindingResult.hasErrors()){
-            return "projectRegistrationForm";
+            return "project/projectRegistrationForm";
         }
         Optional<Project> optionalProject = projectService.findProjectByProjectNumber(project.getProjectNumber());
         if(optionalProject.isPresent()){
             bindingResult.rejectValue("projectNumber", "error.projectNumber", "Projekt o takim numerze już istnieje!");
-            return "projectRegistrationForm";
+            return "project/projectRegistrationForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();
@@ -74,13 +74,13 @@ public class ProjectController {
 
     @RequestMapping(value = "/allProjects", method = RequestMethod.GET)
     public String showAllProjects(){
-        return "allProjects";
+        return "project/allProjects";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchProject(Model model, @RequestParam(name = "projectNumber") Long projectNumber, @RequestParam(name = "hash") String hash, @RequestParam(name = "projectName") String projectName){
         model.addAttribute("searchedProjects", projectService.findAllByProjectNumberOrHashOrProjectNameOrderByProjectNumberAsc(projectNumber, hash, projectName));
-        return "searchedProjects";
+        return "project/searchedProjects";
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
@@ -94,7 +94,7 @@ public class ProjectController {
                 model.addAttribute("currentProjectTeam", optionalTeamByProject.get());
             }
         }
-        return "projectDetails";
+        return "project/projectDetails";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -103,13 +103,13 @@ public class ProjectController {
         if(currentProject.isPresent()) {
             model.addAttribute("project", currentProject.get());
         }
-        return "projectRegistrationForm";
+        return "project/projectRegistrationForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditProjectForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
-            return "projectRegistrationForm";
+            return "project/projectRegistrationForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();
