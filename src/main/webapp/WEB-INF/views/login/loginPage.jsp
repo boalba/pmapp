@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>PMApplication</title>
+    <title>PM Application&reg</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -43,7 +43,7 @@
                 </div>
 
                 <span class="login100-form-title p-t-20 p-b-45">
-						PM Application
+						PM Application&reg
                 </span>
 
                 <div class="form-group">

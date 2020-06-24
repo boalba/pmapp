@@ -18,7 +18,7 @@
         <c:otherwise>
             <c:out value="${loggedPerson.firstName}"></c:out>
         </c:otherwise>
-    </c:choose> w PM Application
+    </c:choose> w PM Application&reg
     </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,7 +90,7 @@
                             <c:otherwise>
                                 <c:out value="${loggedPerson.firstName}"></c:out>
                             </c:otherwise>
-                            </c:choose> w PM Application
+                            </c:choose> w PM Application&reg
                         </h1>
 <%--                    <h1 class="p-t-50">Zespół: <c:choose>--%>
 <%--                        <c:when test="${empty loggedUserTeamByTeamLeader}">--%>
