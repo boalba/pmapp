@@ -93,7 +93,8 @@
                 </h1>
             </div>
         </div>
-        <div style="float: left; width: 35%" class="custom14 p-t-70">
+        <div id="div">
+        <div id="left" style="float: left; width: 35%" class="custom14 p-t-70">
             <div class="custom7">
                 <p class="custom6">Masz do wykonania następujące zadania:</p>
             </div>
@@ -114,7 +115,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div style="display: inline-block; width: 45%" class="custom15 p-t-70">
+        <div id="right" style="display: inline-block; width: 45%" class="custom15 p-t-70">
             <div class="custom7">
                 <p class="custom6">Obecnie uczestniczysz w następujących projektach:</p>
             </div>
@@ -135,6 +136,7 @@
                     </table>
                 </c:otherwise>
             </c:choose>
+        </div>
         </div>
     </div>
 </div>
