@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,22 @@ public class AssignmentService {
 
     public void deleteProjectFromAssignmentByProjectId(Long projectId){
         assignmentRepository.deleteProjectFromAssignmentByProjectId(projectId);
+    }
+
+    public List<Assignment> findAllAssignments(){
+        return assignmentRepository.findAll();
+    }
+
+    public List<Assignment> findAllAssignmentsOrderByAssignmentStopAsc(){
+        return assignmentRepository.findAllAssignmentsOrderByAssignmentStopAsc();
+    }
+
+    public List<Assignment> findAllByAssignmentNameOrProjectNumberOrProjectNameOrderByAssignmentStopAsc(String assignmentName, Long projectNumber, String projectName){
+        return assignmentRepository.findAllByAssignmentNameOrProjectNumberOrProjectNameOrderByAssignmentStopAsc(assignmentName, projectNumber, projectName);
+    }
+
+    public List<Assignment> findAllAssignmentsByUserIdOrderByAssignmentStopAsc(Long userId){
+        return assignmentRepository.findAllAssignmentsByUserIdOrderByAssignmentStopAsc(userId);
     }
 
 }

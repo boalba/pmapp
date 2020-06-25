@@ -53,7 +53,9 @@
             <p class="custom6 p-b-10">Wyszukaj zadanie:</p>
             <div class="form-group">
                 <form method="post" action="/assignment/search">
-                    <input name="assignmentName" type="text" class="form-control custom12" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa zadania"/>
+                    <input name="assignmentName" type="text" class="form-control custom12" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Nazwa zadania"/>
+                    <input name="projectNumber" type="text" class="form-control custom13" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Numer projektu"/>
+                    <input name="projectName" type="text" class="form-control custom13" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Nazwa projektu"/>
                     <button type="submit" class="buttonSearch">Szukaj</button>
                 </form>
             </div>
@@ -68,14 +70,16 @@
                 </c:when>
                 <c:otherwise>
                     <table class="table">
-                        <c:forEach items="${allAssignments}" var="assignment">
+                        <c:forEach items="${allAssignments}" var="assignment" varStatus="count">
                             <tr>
-                                <td class="custom9">${project.projectNumber}</td>
-                                <td class="custom9">${project.hash}</td>
-                                <td class="custom9">${project.projectName}</td>
-                                <sec:authorize access="hasAuthority('SUPERADMIN')">
-                                <td class="custom9"><a href="/project/edit/${project.id}">Edytuj</a></td>
-                                <td class="custom9"><a href="/project/delete/${project.id}" onclick="return confirm('Czy napewno chcesz usunąć projekt: ${project.projectNumber} ${project.projectName}');">Usuń</a></td>
+                                <td style="height: 5px" class="custom9">${count.index + 1}.</td>
+                                <td style="height: 5px" class="custom9"><a style="font-size: large; font-weight: bold" href="/assignment/details/${assignment.key.id}">${assignment.key.assignmentName}</a></td>
+                                <td style="height: 5px" class="custom9">od: ${assignment.key.assignmentStart}</td>
+                                <td style="height: 5px" class="custom9">do: ${assignment.key.assignmentStop}</td>
+                                <td style="height: 5px" class="custom9">${assignment.value.projectNumber} ${assignment.value.projectName}</td>
+                                <sec:authorize access="hasAnyAuthority('SUPERADMIN', 'ADMIN')">
+                                <td style="height: 5px" class="custom9"><a href="/assignment/edit/${assignment.key.id}">Edytuj</a></td>
+                                <td style="height: 5px" class="custom9"><a href="/assignment/delete/${assignment.key.id}" onclick="return confirm('Czy napewno chcesz usunąć zadanie: ${assignment.key.assignmentName}');">Usuń</a></td>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>
@@ -83,17 +87,16 @@
                 </c:otherwise>
             </c:choose>
         </div>
-
-        <script>
-            function w3_open() {
-                document.getElementById("mySidebar").style.display = "block";
-            }
-
-            function w3_close() {
-                document.getElementById("mySidebar").style.display = "none";
-            }
-        </script>
     </div>
 </div>
+<script>
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
 </body>
 </html>

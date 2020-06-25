@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/team/register", "/team/edit/**", "/team/delete/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/user/register", "/user/edit/**", "/user/editPass/**", "/user/delete/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/person/register", "/person/edit/**", "/person/delete/**").hasAuthority("SUPERADMIN")
+                .antMatchers("/assignment/register", "/assignment/edit/**", "/assignment/delete/**").hasAnyAuthority("SUPERADMIN", "ADMIN")
                 .antMatchers("/**").authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login")

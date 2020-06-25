@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import pl.mwprojects.pmapp.assignment.AssignmentService;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.ProjectService;
@@ -24,12 +25,14 @@ public class DashboardController {
     private final PersonDetailsService personDetailsService;
     private final ProjectService projectService;
     private final TeamService teamService;
+    private final AssignmentService assignmentService;
 
-    public DashboardController(UserService userService, PersonDetailsService personDetailsService, ProjectService projectService, TeamService teamService) {
+    public DashboardController(UserService userService, PersonDetailsService personDetailsService, ProjectService projectService, TeamService teamService, AssignmentService assignmentService) {
         this.userService = userService;
         this.personDetailsService = personDetailsService;
         this.projectService = projectService;
         this.teamService = teamService;
+        this.assignmentService = assignmentService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -54,6 +57,7 @@ public class DashboardController {
                         model.addAttribute("loggedUserTeamByUser", loggedUserTeamByUser.get());
                     }
                 }
+                model.addAttribute("loggedAssignments", assignmentService.findAllAssignmentsByUserIdOrderByAssignmentStopAsc(loggedUser.get().getId()));
             }
         }
         return "dashboard/dashboard";

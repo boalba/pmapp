@@ -57,17 +57,16 @@
             <p class="custom10">Błedny login lub hasło! Spróbuj jeszcze raz.</p>
             <p class="custom10"><a class="custom10" href="/login">>>Zaloguj się<<</a></p>
         </div>
-
-        <script>
-            function w3_open() {
-                document.getElementById("mySidebar").style.display = "block";
-            }
-
-            function w3_close() {
-                document.getElementById("mySidebar").style.display = "none";
-            }
-        </script>
     </div>
 </div>
+<script>
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
 </body>
 </html>

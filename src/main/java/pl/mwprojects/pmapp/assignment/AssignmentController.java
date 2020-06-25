@@ -7,12 +7,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.project.ProjectService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -39,6 +42,23 @@ public class AssignmentController {
         return projectService.findAllProjectsOrderedByProjectNumberASC();
     }
 
+    @ModelAttribute(name = "allAssignments")
+    public Map<Assignment, Project> allAssignments(){
+        List<Assignment> allAssignments = assignmentService.findAllAssignmentsOrderByAssignmentStopAsc();
+        List<Project> allProjects = projectService.findAllProjects();
+        Map<Assignment, Project> allAssignmentsWithProjects = new HashMap<>();
+
+        for(Assignment assignment : allAssignments){
+            for(Project project : allProjects){
+                if(assignment.getProject().equals(project)){
+                    allAssignmentsWithProjects.put(assignment, project);
+                }
+            }
+        }
+
+        return allAssignmentsWithProjects;
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String assignmentRegistrationForm(Model model){
         model.addAttribute("assignment", new Assignment());
@@ -58,5 +78,28 @@ public class AssignmentController {
         assignmentService.saveAssignment(assignment);
         return "redirect:/assignment/allAssignments";
     }
+
+    @RequestMapping(value = "/allAssignments", method = RequestMethod.GET)
+    public String showAllAssignments(){
+        return "assignment/allAssignments";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchAssignments(Model model, @RequestParam(name = "assignmentName") String assignmentName, @RequestParam(name = "projectNumber") Long projectNumber, @RequestParam(name = "projectName") String projectName){
+        List<Assignment> searchedAssignments = assignmentService.findAllByAssignmentNameOrProjectNumberOrProjectNameOrderByAssignmentStopAsc(assignmentName, projectNumber, projectName);
+        List<Project> allProjects = projectService.findAllProjects();
+        Map<Assignment, Project> allSearchedAssignmentsWithProjects = new HashMap<>();
+
+        for(Assignment assignment : searchedAssignments){
+            for(Project project : allProjects){
+                if(assignment.getProject().equals(project)){
+                    allSearchedAssignmentsWithProjects.put(assignment, project);
+                }
+            }
+        }
+        model.addAttribute("searchedAssignments", allSearchedAssignmentsWithProjects);
+        return "assignment/searchedAssignments";
+    }
+
 
 }

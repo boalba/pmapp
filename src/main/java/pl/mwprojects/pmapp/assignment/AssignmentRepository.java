@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,4 +27,15 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
             nativeQuery = true)
     void deleteProjectFromAssignmentByProjectId(Long projectId);
 
+    @Query(value = "SELECT * FROM assignments ORDER BY assignment_stop ASC",
+            nativeQuery = true)
+    List<Assignment> findAllAssignmentsOrderByAssignmentStopAsc();
+
+    @Query(value = "SELECT * FROM assignments INNER JOIN projects ON assignments.project_id = projects.id WHERE (assignments.assignment_name = ?1 OR projects.project_number = ?2 OR projects.project_name = ?3) ORDER BY assignments.assignment_stop ASC",
+            nativeQuery = true)
+    List<Assignment> findAllByAssignmentNameOrProjectNumberOrProjectNameOrderByAssignmentStopAsc(String assignmentName, Long projectNumber, String projectName);
+
+    @Query(value = "SELECT * FROM assignments_users INNER JOIN assignments ON assignments_users.assignments_id = assignments.id WHERE users_id = ?1 ORDER BY assignments.assignment_stop ASC",
+            nativeQuery = true)
+    List<Assignment> findAllAssignmentsByUserIdOrderByAssignmentStopAsc(Long userId);
 }

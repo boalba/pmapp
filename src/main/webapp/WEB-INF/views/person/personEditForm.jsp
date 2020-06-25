@@ -92,7 +92,6 @@
         </div>
     </div>
 </div>
-
 <script>
     function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
@@ -102,6 +101,5 @@
         document.getElementById("mySidebar").style.display = "none";
     }
 </script>
-
 </body>
 </html>
