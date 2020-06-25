@@ -130,7 +130,7 @@ public class ProjectController {
         if(currentProject.isPresent()){
             projectService.deleteProjectFromUserByProjectId(id);
             projectService.deleteProjectFromTeamByProjectId(id);
-            assignmentService.deleteProjectFromAssignmentByProjectId(id);
+            assignmentService.deleteAssignmentByProjectId(id);
             projectService.deleteProject(currentProject.get());
         }
         return "redirect:/project/allProjects";

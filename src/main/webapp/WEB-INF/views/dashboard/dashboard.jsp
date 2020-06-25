@@ -108,7 +108,7 @@
                             <tr>
                                 <td style="height: 5px" class="custom9">${count.index + 1}.</td>
                                 <td style="height: 5px" class="custom8"><a style="font-size: large; font-weight: bold" href="/assignment/details/${assignment.id}">${assignment.assignmentName}</a></td>
-                                <td style="height: 5px" class="custom9">do: ${assignment.assignmentStop}</td>
+                                <td style="height: 5px" class="custom9">${assignment.assignmentStop}</td>
                             </tr>
                         </c:forEach>
                     </table>

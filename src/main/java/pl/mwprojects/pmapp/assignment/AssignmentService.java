@@ -51,4 +51,16 @@ public class AssignmentService {
         return assignmentRepository.findAllAssignmentsByUserIdOrderByAssignmentStopAsc(userId);
     }
 
+    public void deleteAssignment(Assignment assignment){
+        assignmentRepository.delete(assignment);
+    }
+
+    public void deleteAssignmentByProjectId(Long projectId){
+        assignmentRepository.deleteAssignmentByProjectId(projectId);
+    }
+
+    public List<Assignment> findAllAssignmentsByProjectId(Long projectId){
+        return assignmentRepository.findAllAssignmentsByProjectId(projectId);
+    }
+
 }

@@ -38,4 +38,13 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     @Query(value = "SELECT * FROM assignments_users INNER JOIN assignments ON assignments_users.assignments_id = assignments.id WHERE users_id = ?1 ORDER BY assignments.assignment_stop ASC",
             nativeQuery = true)
     List<Assignment> findAllAssignmentsByUserIdOrderByAssignmentStopAsc(Long userId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE * FROM assignments WHERE project_id= ?1",
+            nativeQuery = true)
+    void deleteAssignmentByProjectId(Long projectId);
+
+    List<Assignment> findAllAssignmentsByProjectId(Long projectId);
+
 }
