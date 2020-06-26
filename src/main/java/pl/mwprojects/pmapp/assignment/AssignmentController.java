@@ -4,14 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.project.ProjectService;
+import pl.mwprojects.pmapp.team.Team;
 
 import java.util.HashMap;
 import java.util.List;
@@ -101,5 +99,13 @@ public class AssignmentController {
         return "assignment/searchedAssignments";
     }
 
-
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public String showAssignmentDetails(Model model, @PathVariable Long id){
+        Optional<Assignment> currentAssignment = assignmentService.findAssignmentById(id);
+        if(currentAssignment.isPresent()) {
+            model.addAttribute("currentAssignment", currentAssignment.get());
+            model.addAttribute("currentAssignmentPeople", personDetailsService.findAllPeopleOnAssignmentByAssignmentId(id));
+        }
+        return "assignment/assignmentDetails";
+    }
 }

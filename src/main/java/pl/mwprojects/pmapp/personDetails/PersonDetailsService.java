@@ -51,4 +51,8 @@ public class PersonDetailsService {
     public List<PersonDetails> findAllByFirstNameOrSureNameOrderBySureNameAsc(String firstName, String sureName){
         return  personalDetailsRepository.findAllByFirstNameOrSureNameOrderBySureNameAsc(firstName, sureName);
     }
+
+    public List<PersonDetails> findAllPeopleOnAssignmentByAssignmentId(Long assignmentId){
+        return personalDetailsRepository.findAllPeopleOnAssignmentByAssignmentId(assignmentId);
+    }
 }

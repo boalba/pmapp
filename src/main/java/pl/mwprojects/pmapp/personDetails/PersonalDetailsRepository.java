@@ -40,4 +40,8 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonDetails, 
     List<PersonDetails> findAllPersonDetailsOfCurrentTeam(int teamId);
 
     List<PersonDetails> findAllByFirstNameOrSureNameOrderBySureNameAsc(String firstName, String sureName);
+
+    @Query(value = "SELECT * FROM person_details INNER JOIN assignments_users ON person_details.user_id = assignments_users.users_id WHERE assignments_users.assignments_id = ?1",
+            nativeQuery = true)
+    List<PersonDetails> findAllPeopleOnAssignmentByAssignmentId(Long assignmentId);
 }

@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${currentProject.projectName}</title>
+    <title>${currentAssignment.assignmentName}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -51,48 +51,37 @@
             </button>
 
             <div class="custom3">
-                <img class="avatar" src="<c:url value="data:image/jpg;base64,${currentProject.image}"/>" alt="LOGO">
                 <div class="custom4">
                     <h1>
-                        <c:out value="${currentProject.projectName}"/>
+                        <c:out value="${currentAssignment.assignmentName}"/>
                     </h1>
                 </div>
             </div>
         </div>
-        <div id="div">
+
         <div class="custom5">
-            <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Nazwa skrócona: <b><c:out value="${currentProject.hash}"/></b></p>
-            <p class="custom6 p-t-10 p-b-10">Projekt przypisany do zespołu:
-                <b><c:choose>
-                    <c:when test="${empty currentProjectTeam}">
-                        brak
-                    </c:when>
-                    <c:otherwise>
-                        <a href="/team/details/${currentProjectTeam.id}" class="custom11"><c:out value="${currentProjectTeam.teamName}"/></a>
-                    </c:otherwise>
-                </c:choose></b>
-            <p class="custom6 p-t-10 p-b-10">Zespół projektowy:<br>
+            <p class="custom6 p-t-10 p-b-10">Data rozpoczęcia: <b><c:out value="${currentAssignment.assignmentStart}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Data zakończenia: <b><c:out value="${currentAssignment.assignmentStop}"/></b></p>
+            <p class="custom6 p-t-10 p-b-10">Projekt: <b><a href="/project/details/${currentAssignment.project.id}" class="custom11"><c:out value="${currentAssignment.project.projectNumber} ${currentAssignment.project.projectName}"/></a></b></p>
+            <p class="custom6 p-t-10 p-b-10">Osoby przypisane do zadania:<br>
                 <b>
                     <c:choose>
-                        <c:when test="${empty peopleOnProject}">
-                            <p class="custom6">Brak zespołu projektowego</p>
+                        <c:when test="${empty currentAssignmentPeople}">
+                            <p class="custom6">Brak osób przypisanych do zadania</p>
                         </c:when>
                         <c:otherwise>
-                        <c:forEach items="${peopleOnProject}" var="person">
-                        <a href="/person/details/${person.id}" class="custom11"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
-                        </c:forEach>
+                            <c:forEach items="${currentAssignmentPeople}" var="person">
+                                <a href="/person/details/${person.id}" class="custom11"><c:out value="${person.firstName} ${person.sureName}"/></a><br>
+                            </c:forEach>
                         </c:otherwise>
                     </c:choose>
                 </b>
             </p>
-            <p class="custom6 p-t-10 p-b-10">Opis projektu:<br>
+            <p class="custom6 p-t-10 p-b-10">Opis zadania: <br>
                 <b>
-                    <c:out value="${currentProject.description}"/>
+                    <c:out value="${currentAssignment.description}"/>
                 </b>
             </p>
-        </div>
         </div>
     </div>
 </div>
