@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.mwprojects.pmapp.assignment.Assignment;
 import pl.mwprojects.pmapp.assignment.AssignmentService;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
@@ -130,6 +131,10 @@ public class ProjectController {
         if(currentProject.isPresent()){
             projectService.deleteProjectFromUserByProjectId(id);
             projectService.deleteProjectFromTeamByProjectId(id);
+            List<Assignment> assignmentsByProject = assignmentService.findAllAssignmentsByProjectId(id);
+            for(Assignment assignment : assignmentsByProject){
+                assignmentService.deleteAssignmentFromAssignment_User(assignment.getId());
+            }
             assignmentService.deleteAssignmentByProjectId(id);
             projectService.deleteProject(currentProject.get());
         }

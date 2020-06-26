@@ -63,4 +63,8 @@ public class AssignmentService {
         return assignmentRepository.findAllAssignmentsByProjectId(projectId);
     }
 
+    public void deleteAssignmentFromAssignment_User(Long assignmentId){
+        assignmentRepository.deleteAssignmentFromAssignment_User(assignmentId);
+    }
+
 }

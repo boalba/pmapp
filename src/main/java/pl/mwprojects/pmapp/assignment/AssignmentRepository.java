@@ -41,10 +41,17 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE * FROM assignments WHERE project_id= ?1",
+    @Query(value = "DELETE FROM assignments WHERE project_id= ?1",
             nativeQuery = true)
     void deleteAssignmentByProjectId(Long projectId);
 
+    @Query(value = "SELECT * FROM assignments WHERE project_id = ?1",
+            nativeQuery = true)
     List<Assignment> findAllAssignmentsByProjectId(Long projectId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM assignments_users WHERE assignments_id= ?1",
+            nativeQuery = true)
+    void deleteAssignmentFromAssignment_User(Long assignmentId);
 }
