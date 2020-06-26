@@ -132,5 +132,13 @@ public class AssignmentController {
         return "redirect:/assignment/allAssignments";
     }
 
-
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteAssignment(@PathVariable Long id){
+        Optional<Assignment> currentAssignment = assignmentService.findAssignmentById(id);
+        if(currentAssignment.isPresent()){
+            assignmentService.deleteAssignmentFromAssignment_User(id);
+            assignmentService.deleteAssignment(currentAssignment.get());
+        }
+        return "redirect:/assignment/allAssignments";
+    }
 }
