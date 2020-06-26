@@ -65,7 +65,7 @@
             <label for="exampleInputPassword1">Powtórz nowe hasło</label>
             <input name="passwordRepeat" type="password" class="form-control" id="exampleInputPassword1" placeholder="Powtórz nowe hasło użytkownika"/>
         </div>
-        <button type="submit" class="login100-form-btn">Dodaj</button>
+        <button type="submit" class="login100-form-btn">Zmień</button>
     </form:form>
 
         </div>

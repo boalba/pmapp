@@ -107,7 +107,7 @@
             </form:select>
             <form:errors path="projects" class="error-message"/>
         </div>
-        <button type="submit" class="login100-form-btn">Dodaj</button>
+        <button type="submit" class="login100-form-btn">Zmień</button>
     </form:form>
 
         </div>

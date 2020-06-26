@@ -147,6 +147,11 @@ public class TeamController {
             byte[] encodeBase64 = Base64.encodeBase64(bytes);
             String base64Encoded = new String(encodeBase64, "UTF-8");
             team.setImage(base64Encoded);
+        }else{
+        Optional<Team> oldTeam = teamService.findTeamById(id);
+            if(oldTeam.isPresent()) {
+                team.setImage(oldTeam.get().getImage());
+            }
         }
         teamService.saveTeam(team);
         return "redirect:/team/allTeams";

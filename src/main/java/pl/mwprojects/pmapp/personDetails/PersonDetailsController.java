@@ -112,7 +112,7 @@ public class PersonDetailsController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String processEditPersonDetailsForm(@ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
+    public String processEditPersonDetailsForm(@PathVariable Long id, @ModelAttribute(name = "personDetails") @Validated PersonDetails personDetails, BindingResult bindingResult, @RequestParam("filePerson") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
             return "person/personRegistrationForm";
         }
@@ -121,6 +121,11 @@ public class PersonDetailsController {
             byte[] encodeBase64 = Base64.encodeBase64(bytes);
             String base64Encoded = new String(encodeBase64, "UTF-8");
             personDetails.setImage(base64Encoded);
+        }else{
+            Optional<PersonDetails> oldPersonDetails = personDetailsService.findPersonDetailsById(id);
+            if(oldPersonDetails.isPresent()) {
+                personDetails.setImage(oldPersonDetails.get().getImage());
+            }
         }
         personDetailsService.savePerson(personDetails);
         return "redirect:/person/allPeople";

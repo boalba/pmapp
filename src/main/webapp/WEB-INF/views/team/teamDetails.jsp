@@ -89,6 +89,7 @@
                 </b>
             </p>
         </div>
+        <div id="div">
         <div class="custom5">
             <div class="custom7">
                 <p class="custom6 p-t-10 p-b-10"> Zespół <c:out value="${currentTeam.teamName}"/> uczestniczy w następujących projektach:</p>
@@ -110,6 +111,7 @@
                     </table>
                 </c:otherwise>
             </c:choose>
+        </div>
         </div>
     </div>
 </div>

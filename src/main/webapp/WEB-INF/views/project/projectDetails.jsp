@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-
+        <div id="div">
         <div class="custom5">
             <p class="custom6 p-t-10 p-b-10">Numer projektu: <b><c:out value="${currentProject.projectNumber}"/></b></p>
             <p class="custom6 p-t-10 p-b-10">Nazwa projektu: <b><c:out value="${currentProject.projectName}"/></b></p>
@@ -92,6 +92,7 @@
                     <c:out value="${currentProject.description}"/>
                 </b>
             </p>
+        </div>
         </div>
     </div>
 </div>

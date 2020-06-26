@@ -58,6 +58,7 @@
                 </form>
             </div>
         </div>
+        <div id="div">
         <div class="custom5 p-t-50">
             <div class="custom7">
             <p class="custom6">Lista wszystkich zespołów:</p>
@@ -81,6 +82,7 @@
                     </table>
                 </c:otherwise>
             </c:choose>
+        </div>
         </div>
     </div>
 </div>

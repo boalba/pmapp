@@ -111,7 +111,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String processEditProjectForm(@ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws Exception{
+    public String processEditProjectForm(@PathVariable Long id, @ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
             return "project/projectRegistrationForm";
         }
@@ -120,6 +120,11 @@ public class ProjectController {
             byte[] encodeBase64 = Base64.encodeBase64(bytes);
             String base64Encoded = new String(encodeBase64, "UTF-8");
             project.setImage(base64Encoded);
+        }else{
+            Optional<Project> oldProject = projectService.findProjectById(id);
+            if(oldProject.isPresent()) {
+                project.setImage(oldProject.get().getImage());
+            }
         }
         projectService.saveProject(project);
         return "redirect:/project/allProjects";
