@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Rejestracja nowego projektu</title>
+    <title>Edycja projektu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
@@ -53,7 +53,7 @@
         <div class="custom2">
 
                 <span class="login100-form-title p-b-25">
-						Dodaj nowy projekt
+						Edytuj projekt
                 </span>
 
     <form:form method="post" modelAttribute="project" enctype="multipart/form-data">
@@ -100,7 +100,7 @@
             </form:select>
             <form:errors path="users" class="error-message"/>
         </div>
-        <button type="submit" class="login100-form-btn">Dodaj</button>
+        <button type="submit" class="login100-form-btn">Edytuj</button>
     </form:form>
 
         </div>

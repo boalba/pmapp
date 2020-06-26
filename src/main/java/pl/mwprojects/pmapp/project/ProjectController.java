@@ -107,13 +107,13 @@ public class ProjectController {
         if(currentProject.isPresent()) {
             model.addAttribute("project", currentProject.get());
         }
-        return "project/projectRegistrationForm";
+        return "project/projectEditForm";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String processEditProjectForm(@PathVariable Long id, @ModelAttribute(name = "project") @Validated Project project, BindingResult bindingResult, @RequestParam("fileProject") MultipartFile file) throws Exception{
         if(bindingResult.hasErrors()){
-            return "project/projectRegistrationForm";
+            return "project/projectEditForm";
         }
         if(!file.isEmpty() && file != null) {
             byte[] bytes = file.getBytes();

@@ -1,15 +1,16 @@
 package pl.mwprojects.pmapp.assignment;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.mwprojects.pmapp.personDetails.PersonDetails;
 import pl.mwprojects.pmapp.personDetails.PersonDetailsService;
 import pl.mwprojects.pmapp.project.Project;
 import pl.mwprojects.pmapp.project.ProjectService;
-import pl.mwprojects.pmapp.team.Team;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +54,6 @@ public class AssignmentController {
                 }
             }
         }
-
         return allAssignmentsWithProjects;
     }
 
@@ -108,4 +108,29 @@ public class AssignmentController {
         }
         return "assignment/assignmentDetails";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editAssignment(Model model, @PathVariable Long id){
+        Optional<Assignment> currentAssignment = assignmentService.findAssignmentById(id);
+        if(currentAssignment.isPresent()) {
+            model.addAttribute("assignment", currentAssignment.get());
+        }
+        return "assignment/assignmentEditForm";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String processEditAssignmentForm(@PathVariable Long id, @ModelAttribute(name = "assignment") @Validated Assignment assignment, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "project/projectRegistrationForm";
+        }
+        Optional<Assignment> optionalAssignment = assignmentService.findAssignmentByAssignmentName(assignment.getAssignmentName());
+        if(optionalAssignment.isPresent()){
+            bindingResult.rejectValue("assignmentName", "error.assignmentName", "Zadanie o takiej nazwie już istnieje!");
+            return "assignment/assignmentEditForm";
+        }
+        assignmentService.saveAssignment(assignment);
+        return "redirect:/assignment/allAssignments";
+    }
+
+
 }
