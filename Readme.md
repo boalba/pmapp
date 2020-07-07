@@ -7,4 +7,4 @@ rekordów powyższych elementów. Dodatkowo istnieje możliwość wyświetlenia 
 zadania. W dalszej kolejności planowany jest rozwój części przypisywanych zadań do użytkowników i projektów w celu przedstawiania danych w bardziej
 efektywny sposób umożliwiający łatwiejsze nimi zarządzanie. 
 Wykorzystane technologie i narzędzia: Java 11, Spring Boot, Spring Data, Spring Security, Hibernate, MySQL, JavaScript, JSTL, EL
-/home/maciej/Obrazy/Zrzut ekranu z 2020-07-07 19-10-58.png
+
